@@ -29,9 +29,9 @@ class AssignmentController < ApplicationController
 
     require 'open-uri'
     require 'nokogiri'
-   
+
     # --- Fetch data from Google news : Checking category ---
-    @category = params[:category] 
+    @category = params[:category]
     path_news = ''
     if @category == 'headlines'
       #headlines
@@ -44,28 +44,26 @@ class AssignmentController < ApplicationController
       path_news = 'https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen'
     end
     #---- Set Proxy------
-    page_content = open(path_news, 
+    page_content = open(path_news,
           proxy: URI.parse("http://192.41.170.23:3128")
         )
 
     doc = Nokogiri::HTML::Document.parse(page_content)
     # --- Extract HTML Part ---
-   
+
     #'Headlines'
     all_news = doc.css('div.NiLAwe.gAl5If.jVwmLb.Oc0wGc.R7GTQ.keNKEd.j7vNaf.nID9nc div.xrnccd.F6Welf.R7GTQ.keNKEd.j7vNaf')
-
-
     news_items_size = all_news.size
 
     @ext_arr = Array.new(news_items_size) { Hash.new }
     num = 0
     google_news_url = 'https://news.google.com'
     for item in all_news
-      
+
       title = item.css('article h3 span')
       link  = item.css('article h3 a').attr('href')
       pic   = item.css('figure img').attr('src')
-      #---- Sub articles --- 
+      #---- Sub articles ---
       sub_news_title =  item.css('div.SbNwzf article div.mEaVNd h4')
       sub_news_link =  item.css('div.SbNwzf article')
       sub_title  = sub_news_title.css('span')
@@ -74,7 +72,7 @@ class AssignmentController < ApplicationController
       # puts sub_link.size
       @ext_arr[num]['title']    = title.text
       @ext_arr[num]['news_pic']  = pic
-      link[0] = '' 
+      link[0] = ''
       @ext_arr[num]['news_link'] = google_news_url+link
       concat_sub_title = ''
       concat_sub_link  = ''
@@ -88,45 +86,14 @@ class AssignmentController < ApplicationController
          sub_href[0] = ''
          concat_sub_link = '|'+google_news_url+sub_href+concat_sub_link
       end
-      
+
       # concat_sub_link[0] = ''
       @ext_arr[num]['sub_news']   = concat_sub_title
       @ext_arr[num]['sub_links']  = concat_sub_link
       # break
       num=num+1
-    end  
+    end
 
     render 'news'
   end
-  # def fetch_news_world
-  #   require 'resolv-replace'
-  #   require 'net/http'
-  #   require 'uri'
-  #   require 'json'
-  #   require 'nokogiri'
-
-  #   def open(url)
-  #     Net::HTTP.get(URI.parse(url))
-  #   end
-  #   #fetch data from Google news : category world
-  #   page_content = open('https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx1YlY4U0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen')
-  
-
-  #  doc = Nokogiri::HTML::Document.parse(page_content)
-  #  # article = doc.css('article').map(&:text)
-  #  # content_title = doc.css('article h3')
-  #  # @news_links = doc.css('article h3 a')
-
-  #  # content_title = doc.css('article h3 span')
-  #  # # content_title = doc.css('article div.ZulkBc.qNiaOd span').text
-
-  #  # # news_links.each{|link| puts link['href'] }
-  #   @category = 'World'
-  #   @news_pic = doc.css('div.NiLAwe.gAl5If.jVwmLb.Oc0wGc.R7GTQ.keNKEd.j7vNaf.nID9nc figure img')
-  #   @all_news = doc.css('div.NiLAwe.gAl5If.jVwmLb.Oc0wGc.R7GTQ.keNKEd.j7vNaf.nID9nc article h3 span')
-  #   @news_links = doc.css('div.NiLAwe.gAl5If.jVwmLb.Oc0wGc.R7GTQ.keNKEd.j7vNaf.nID9nc article h3 a')
-  #   # ----
-    
-  #   render 'news'
-  # end
 end
