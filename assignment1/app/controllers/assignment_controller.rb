@@ -7,7 +7,7 @@ class AssignmentController < ApplicationController
 
     render 'index'
   end
-  def problem1
+  def divide_by_zero
     require 'logger'
 
     logger = Logger.new(STDOUT)
@@ -26,15 +26,10 @@ class AssignmentController < ApplicationController
     render 'index'
   end
   def fetch_news
-    require 'resolv-replace'
-    require 'net/http'
-    require 'uri'
-    require 'json'
-    require 'nokogiri'
 
-    def open(url)
-      Net::HTTP.get(URI.parse(url))
-    end
+    require 'open-uri'
+    require 'nokogiri'
+   
     # --- Fetch data from Google news : Checking category ---
     @category = params[:category] 
     path_news = ''
@@ -48,8 +43,11 @@ class AssignmentController < ApplicationController
       #headlines
       path_news = 'https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFZxYUdjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen'
     end
+    #---- Set Proxy------
+    page_content = open(path_news, 
+          proxy: URI.parse("http://192.41.170.23:3128")
+        )
 
-    page_content = open(path_news)
     doc = Nokogiri::HTML::Document.parse(page_content)
     # --- Extract HTML Part ---
    

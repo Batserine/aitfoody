@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Assignment1</title>
+    <title>Assignment</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -11,5 +11,11 @@
 
   <body>
     <%= yield %>
+     <!--footer-->
+    <p>
+      <a href="https://validator.w3.org/check?uri=<%= request.url%>"><img
+       src="http://www.w3.org/Icons/valid-html401"
+        alt="Valid XHTML 1.0!" /></a> 
+    </p>
   </body>
 </html>
