@@ -1,0 +1,55 @@
+ <!DOCTYPE html>
+<html>
+<head>
+	<title>Google News</title>
+</head>
+<body>
+	<div class="container">
+		<br>
+		<h2 align="center">Google News</h2>
+	  <!-- Content here -->
+	   <h3>Category :<%= @category%></h3>
+ 		<%   count = 0
+	       for items in @ext_arr
+
+	       	   link = items['news_link']
+	            %>
+  	    <div class="card">
+		        <div class="row no-gutters">
+		            <div class="col-auto">
+		                <img src="<%= items['news_pic']%>" class="img-fluid" width="120" height="100" alt="no image">
+		            </div>
+		            <div class="col">
+		                <div class="card-block px-2">
+		                    <h4 class="card-title"><a href="<%= link %>" target="_blank"><%= items['title'] %></a></h4>
+		                   
+		                    <% sub_news_str = items['sub_news']	
+		                       sub_links_str= items['sub_links']	
+
+		                       sub_arr      = sub_news_str.to_s.split('|')
+		                       sub_link_arr = sub_links_str.to_s.split('|')
+		                       num_sub = 0
+		                       for sub_item in sub_arr
+		                     %>		                     	
+		                     	<li><a href="<%= sub_link_arr[num_sub]%>" target="_blank">
+		                     		<%= sub_item%></a></li>
+		                     <% num_sub = num_sub+1
+		                        end %>
+		                    <!-- <p class="card-text"> <a href="<%= link %>" target="_blank">view more</a></p> -->
+		                </div>
+		            </div>
+		        </div>		       
+		    </div>
+		    <br>
+	   <% count=count+1
+	      end %>
+	 </div>
+	
+    <!--footer-->
+	<p style="margin-top: 100px;display: block;">
+		<a href="https://validator.w3.org/check?uri=<%= request.url%>"><img
+	   src="http://www.w3.org/Icons/valid-html401"
+	    alt="Valid XHTML 1.0!" /></a> 
+	</p>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Web08</title>
+</head>
+<body>
+   <div class="container">
+   		<br>
+		<h2>Problem Set</h2>
+	    <h3>PS1</h3>
+	    <p> <%= link_to "Divide-by-zero", :controller => :assignment, :action => :divide_by_zero
+	    %><br>
+	    Description: When the a divide-by-zero exception is occur, a stack trace/errors will show on the browser. 
+	    <li>Generate assignment#divide_by_zero controller</li>
+	    <li>Add 1/0 in assignment#divide_by_zero</li>
+	    <li>Use logger.error to logs "About to divide by 0" before the errors occur.</li>
+	    <li>To hide a stack trace, we can run the project on production mode with command (rails server -e production).</li> 
+	    <li>If we want to show errors on production mode, we can config at config/environments/production.rb and then set "config.consider_all_requests_local = true".</li>
+		</p>
+		<br>
+	    <p> Google News : 
+	       <%= link_to "Headlines", :controller => :assignment, :action => :fetch_news , 
+	       "category"=>"headlines" %>
+	       &nbsp;&nbsp;
+	       <%= link_to "World", :controller => :assignment, :action => :fetch_news, "category"=>"world" %>
+	    	<br>Description: 
+	    	<li> Use Net/http to fetch HTML </li>
+	    	<li> Use Nokoriki to extract data in HTML </li>
+	    </p>
+	    
+	    <!--footer-->
+		<p>
+			<a href="https://validator.w3.org/check?uri=<%= request.url%>"><img
+		   src="http://www.w3.org/Icons/valid-html401"
+		    alt="Valid XHTML 1.0!" /></a> 
+		</p>
+	</div>
+</body>
+</html>
