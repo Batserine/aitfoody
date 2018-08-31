@@ -17,8 +17,8 @@
  				<%= link_to "Divide-by-zero", :controller => :assignment, :action => :divide_by_zero  %>
 		      </td>
 		      <td>
-		      	<li>Generate assignment#divide_by_zero controller</li>
-			    <li>Add 1/0 in assignment#divide_by_zero</li>
+		      	<li>Generate assignment#divide_by_zero controller.</li>
+			    <li>Add 1/0 in assignment#divide_by_zero.</li>
 			    <li>Use logger.error to logs "About to divide by 0" before the errors occur.</li>
 			    <li>To hide a stack trace, we can run the project on production mode with command (rails server -e production).</li> 
 			    <li>If we want to show errors on production mode, we can config at config/environments/production.rb and then set "config.consider_all_requests_local = true".</li> 
@@ -27,12 +27,14 @@
 		    <tr>
 		      <th scope="row">&nbsp;</th>
 		      <td>Google News : <%= link_to "Headlines", :controller => :assignment, :action => :fetch_news , "category"=>"headlines" %> |
-	      		 <%= link_to "World", :controller => :assignment, :action => :fetch_news, "category"=>"world" %>
-	       	
+	      		 <%= link_to "World", :controller => :assignment, :action => :fetch_news, "category"=>"world" %>	       	
 	       	  </td>
-		      <td>
-		      	 <li> Use Net/http to fetch HTML </li>
-	    		<li> Use Nokoriki to extract data in HTML </li>
+		      <td>		      
+	    		 <li>Get URL paths from Google news in category headlines and worlds.</li>
+	    		 <li>Use open-uri to fetch HTML data from URL paths.</li>
+	    		 <li>Use inspect elements in Firefox to browse title, picture,and links tag of each article.</li>
+	    		 <li>Use Nokoriki to extract data in HTML.</li>
+	    		 <li>When deploy the project on server, we need to set proxy ("http://192.41.170.23:3128") before fetch HTML data.</li>
 	    	  </td>		    
 		    </tr>
 		  </tbody>
