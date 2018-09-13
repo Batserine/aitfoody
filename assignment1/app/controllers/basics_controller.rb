@@ -16,7 +16,6 @@ class BasicsController < ApplicationController
       @quotation = Quotation.new
     end
     @categories = Quotation.select("category").group(:category)
-
     #------ Check cookies ------------
     if  cookies[:my_quote].present?
       #--- erase my quote by using SQL : NOT IN query---
@@ -37,6 +36,7 @@ class BasicsController < ApplicationController
       end
     end
 
+    puts @categories
    #----- Convert ActiveRecord to XML ----
     entries = []
     @quotations.each do |quotation|
@@ -107,6 +107,7 @@ class BasicsController < ApplicationController
   def init_data_form
     @quotation  = Quotation.new
     @categories = Quotation.select("category").group(:category)
+
   end
   # GET /destroy
   def destroy_cookies

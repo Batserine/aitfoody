@@ -49,7 +49,7 @@
     <div class="form_row">
       <%= form.label :category %>
 <!-- ("value in options", "label")-->
-      <%= select_tag "category_exist", options_from_collection_for_select(@categories, "category", "category") , prompt: " --- Select Category ---" %>
+      <%= select_tag "category_exist", options_from_collection_for_select(@categories, "category", "category") , prompt: " --- Select Category ---", :onchange => 'checkCat()' %>
     </div>
     <div class="form_row">
       New <%= form.label :category %>
@@ -66,3 +66,15 @@
   </div>
   </p>
 <% end %>
+<script type="text/javascript">
+
+  function checkCat(){
+    var val = document.getElementById("category_exist").value;
+    if (val !== ''){
+      document.getElementById("quotation_category").disabled = true;
+    }else{
+      document.getElementById("quotation_category").disabled = false;
+    }
+
+  }
+</script>
