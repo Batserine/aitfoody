@@ -1,0 +1,68 @@
+<h3>Quotations</h3>
+
+<%= form_tag(search_path, method: :get) do %>
+  <%= text_field_tag :term %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+
+
+<ul>
+  <table>
+
+  <% for quotation in @quotations %>
+      <tr>
+        <td><%= button_to "delete", {:controller => 'basics', :action => 'kill_quote', :id => quotation.id }, :method=>:get %></td>
+        <td><%= h quotation.id %>:<%= h quotation.author_name %>: <%= h quotation.quote %></td>
+      </tr>
+
+  <% end %>
+
+  </table>
+</ul>
+<br/>
+<% if params[:sort_by] == "date" %>
+  <%= link_to "Sort by category", :action => :quotations, :sort_by => :category %>
+<% else %>
+  <%= link_to "Sort by date", :action => :quotations, :sort_by => :date %>
+<% end %>
+
+<br><br>
+<%= button_to "erase my personalization", {:controller => 'basics',
+                         :action => 'destroy_cookies'}, :method => :get %>
+<hr/>
+<h3>New quotation</h3>
+<!--<= @categories.inspect %>-->
+<%= form_for @quotation, :url => { :action => :quotations } do |form| %>
+<!-- <= form.error_messages %>-->
+  <ul>
+    <% @quotation.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+  <fieldset>
+    <legend>Enter details</legend>
+    <div class="form_row">
+      <%= form.label :author_name %>
+      <%= form.text_field :author_name, :size => 20, :maxlength => 40 %>
+    </div>
+    <div class="form_row">
+      <%= form.label :category %>
+<!-- ("value in options", "label")-->
+      <%= select_tag "category_exist", options_from_collection_for_select(@categories, "category", "category") , prompt: " --- Select Category ---" %>
+    </div>
+    <div class="form_row">
+      New <%= form.label :category %>
+      <%= form.text_field :category, :size => 20, :maxlength => 40 %>
+    </div>
+    <div class="form_row">
+      <%= form.label :quote %>
+      <%= form.text_area :quote, :rows => 2, :cols => 40, :maxlength => 500 %>
+    </div>
+  </fieldset>
+  <p>
+  <div class="form_row">
+    <%= form.submit 'Create' %>
+  </div>
+  </p>
+<% end %>
