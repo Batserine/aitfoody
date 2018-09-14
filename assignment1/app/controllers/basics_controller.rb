@@ -49,14 +49,26 @@ class BasicsController < ApplicationController
       entry.store('updated_at', quotation.updated_at)
       entries << entry
     end
-    #----- Export Data to JSON and XML ------
+    # #----- Export Data to JSON and XML ------
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @quotations }
-      format.xml { render xml:  entries.to_xml(:root => 'quotations', children: "quotation", :skip_types => true)}
-    end
-    # render 'quotations'
+    # respond_to do |format|
+    #   format.html
+    #   format.json { render json: @quotations }
+    #   format.xml { render xml:  entries.to_xml(:root => 'quotations', children: "quotation", :skip_types => true)}
+    # end
+    # # render 'quotations'
+  end
+
+   #----- Export Data to JSON and XML ------
+
+  def export_xml
+    @quo= Quotation.all
+    send_data @quo.as_json.to_xml.to_s
+  end
+  
+  def export_json
+    @quo= Quotation.all
+    send_data @quo.to_json
   end
 
   def search

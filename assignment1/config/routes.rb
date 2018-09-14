@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get 'fetch_news/:category', to: "assignment#fetch_news"
 
   # get "basics"     => "basics#quotations"
+  get 'basics/export_json', as:'export_json'
+  get 'basics/export_xml', as:'export_xml'
   get "basics/quotations"     => "basics#quotations"
   get "basics/kill_quote/:id" => "basics#kill_quote"
   get "basics/search"         => "basics#search", :as => :search
