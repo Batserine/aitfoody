@@ -1,0 +1,14 @@
+<h3>Import XML from Another Server</h3>
+
+<%= form_tag(import_xml_path, method: :post) do %>
+<%= text_field_tag :url,"http://web3.cs.ait.ac.th/ps2/quotations.xml" %>
+<%= submit_tag 'Import' %>
+<% end %>
+<%= link_to 'Back', project_path %>
+<br><br>
+<%  if @entries != nil
+      for entry in @entries %>
+    <%= h entry['author_name'] %>: <%= h entry['quote'] %>
+    <br>
+   <% end %>
+<% end %>
