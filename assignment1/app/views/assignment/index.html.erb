@@ -44,21 +44,59 @@
          <%= link_to "Quotation", :controller => :basics, :action => :quotations %>
          </td>
          <td>
-
+           Task1.<br>
+-We create model: rails generate model quotation author_name:string category:string quote:string<br>
+-rake db:migrate<br>
+-I insert nice quotations into database by using ORM. For example :<br>
+ >> qu = Quotation.create(author_name: "Anne Slater", category: "cat1", quote: "A woman needs four animals in her life. A mink in the closet. A jaguar in the garage. A tiger in bed. And an ass to pay for it all.")<br>
+ >> qu.save<br>
+           Task 2.<br>
+- Edit pseudocode and fixed errors.<br>
+- Add select box for exist category. I group by category and added it into select box.<br>
+- How to use select_tag (select box) : <a href="https://apidock.com/rails/ActionView/Helpers/FormTagHelper/select_tag" target="_blank">here </a><br>
+- Checked the values of category in form. If users do not select the exist categories, they can add new category. If users select some categories, new category box will be diable.<br>
+Task 3.<br>
+- Create search box. We look sample search from these links: <a href="https://rubyplus.com/articles/3381-Simple-Search-Form-in-Rails-5" target="_blank">here </a><br>
+- We learn how to use where conditions for search from this link:<br>
+ <a href="https://stackoverflow.com/questions/9708409/rails-how-to-find-by-a-field-containing-a-certain-string" target="_blank">How to find_by a field containing a certain string</a><br>
+- Deal with search cover the case-insensitive by using “ILIKE”<br>
+- Learn how to search multiple columns from this link: <a href="https://stackoverflow.com/questions/9379884/search-multiple-columns-rails" target="_blank">here </a><br>
+- Implement personalization of the quotation by using cookies. In the task, we learn how to create and destroy cookies<br>
+   <a href="https://stackoverflow.com/questions/1232174/rails-cookies-set-start-date-and-expire-date" target="_blank">How to using Cookies and set expired date.</a><br>
+- Users can delete quote and it will not effects to other users. To do this task, I keep id of quote which users are deleted. We use SQL condition “where not” to filter the quote’s id list in cookies.<br>
+   <a href="https://rubyplus.com/articles/3171-Rails-5-ActiveRecord-where-find-by-or-not-and-Eager-Loading" target="_blank">How to use where and where not conditions.</a><br>
+   Task 4.<br>
+  - Implement personalization of the quotation by using cookies. In the task, we learn how to create and destroy cookies.<br>
+    <a href="https://stackoverflow.com/questions/1232174/rails-cookies-set-start-date-and-expire-date" target="_blank">How to using Cookies and set expired date</a><br>
+  - Users can delete quote and it will not effects to other users. To do this task, I keep id of quote which users are deleted. We use SQL condition “where not” to filter the quote’s id list in cookies.<br>
+  -   <a href="https://rubyplus.com/articles/3171-Rails-5-ActiveRecord-where-find-by-or-not-and-Eager-Loading" target="_blank">How to use where and where not conditions.</a><br>
          </td>
+
        </tr>
        <tr>
          <td scope="row">&nbsp;</td>
 				 <td> Export: <%= link_to "Json", :controller => :basics, :action => :quotations  ,  :format => :json, target: "_blank" %>
               |<%= link_to "XML", :controller => :basics, :action => :quotations  ,  :format => :xml, target: "_blank" %></td>
         <td>
+<<<<<<< HEAD
          <td> Export: <%= link_to "Json", export_json_path, :target => :_blank %>
               |<%= link_to "XML", export_xml_path, :target => :_blank %></td>
+=======
+          Task 5.<br>
+          - Implement export XML and Json by using  format.json and format.xml<br>
+          - Lean how to convert ActiveRecord to XML from this link: <a href="https://stackoverflow.com/questions/40895141/how-to-convert-an-array-of-hashes-into-xml-in-rails" target="_blank">here</a><br>
+        </td>
+>>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
        </tr>
        <tr>
          <td scope="row">&nbsp;</td>
-         <td> Import: XML </td>
+         <td> Import: <%= link_to "XML", :controller => :basics, :action => :import_xml %>  </td>
+         <td>Task 6.<br>
+        - Create input box to import the quotations from another server.<br>
+        - Add sample URL of web3 (http://web3.cs.ait.ac.th/ps2/quotations.xml) to import the quotations. Library open-uri and Nogorigi are used to fetch and extract xml.<br>
+        </td>
        </tr>
+<<<<<<< HEAD
 			  <tr>
                <td scope="row">&nbsp;</td>
                <td><%= link_to "Log File", "assign2sql_log.txt"%></td>
@@ -77,6 +115,8 @@
                <td>SQL file<br/>
                -Contains all Queries used for these tasks.</td>
         </tr>
+=======
+>>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
 
 		  </tbody>
 		</table>

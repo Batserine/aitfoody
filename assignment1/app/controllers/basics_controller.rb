@@ -74,7 +74,8 @@ class BasicsController < ApplicationController
   def search
 
     #----
-    if params[:term]
+    if params[:term] != nil
+      puts 'params[:term]'
       # where ILIKE and where NOT IN query ID in cookies
       if  cookies[:my_quote].present?
         killed_quote_list = cookies[:my_quote].split(',')
@@ -83,6 +84,8 @@ class BasicsController < ApplicationController
         @quotations = Quotation.where('quote ILIKE :search OR author_name ILIKE :search',search: "%#{params[:term]}%" )
       end
     else
+      put 'search nil = show all'
+      put cookies[:my_quote]
       if  cookies[:my_quote].present?
         killed_quote_list = cookies[:my_quote].split(',')
         @quotations = Quotation.where.not(id: killed_quote_list)
@@ -129,6 +132,48 @@ class BasicsController < ApplicationController
     render 'quotations'
   end
 
+# GET /basics/import_xml
+def import_xml
+  require 'open-uri'
+  require 'nokogiri'
+  if params[:url]
+    puts params[:url]
+    doc = Nokogiri::XML(open(params[:url]))
+    count_element = doc.css('quotation').size
+    puts count_element
+    author_arr   = Array.new(count_element) { Hash.new }
+    category_arr = Array.new(count_element) { Hash.new }
+    quote_arr    = Array.new(count_element) { Hash.new }
+    @entries = []
+    num = 0
+    doc.css('ps2-quotation').each do |node|
+      children = node.children
+
+      author_arr[num]   = children.css('author-name').inner_text
+      category_arr[num] = children.css('category').inner_text
+      quote_arr[num]    = children.css('quote').inner_text
+      num = num+1
+      quotation = {
+          "author_name" => children.css('author-name').inner_text,
+          "category"    => children.css('category').inner_text,
+          "quote"       => children.css('quote').inner_text,
+      }
+      @entries << quotation
+      # puts @entries
+      # -- Insert quotation to DB ----
+      @qh = Quotation.new(quotation)
+        if @qh.save
+          puts 'Quotation was successfully created.'
+        end
+    end
+
+  end
+  render 'import_xml'
+end
+
+# def import2db
+#
+# end
 
   private
   def quotationxml_params
