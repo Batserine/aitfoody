@@ -1,0 +1,314 @@
+********* QUERY **********
+create table my_stocks (
+symbol
+varchar(20) not null,
+n_shares
+integer not null,
+date_acquired
+date not null
+);
+**************************
+
+CREATE TABLE
+********* QUERY **********
+copy my_stocks(symbol,n_shares,date_acquired) from '/home/balu/assignsql' (DELIMITER('\t'));
+**************************
+
+********* QUERY **********
+COPY  my_stocks FROM STDIN with delimiter E'\t';
+**************************
+
+COPY 4
+********* QUERY **********
+select * from my_stocks;
+**************************
+
+    symbol    | n_shares | date_acquired 
+--------------+----------+---------------
+ NASDAQ       |      110 | 2016-04-12
+ BSE          |       90 | 2008-12-12
+ NSE          |      120 | 1997-01-01
+ ANGELBROKING |       95 | 2017-05-25
+(4 rows)
+
+********* QUERY **********
+create table stock_prices AS select symbol, current_date as quote_date,31.45 as price from my_stocks;
+**************************
+
+SELECT 4
+********* QUERY **********
+select * from stock_prices;
+**************************
+
+    symbol    | quote_date | price 
+--------------+------------+-------
+ NASDAQ       | 2018-09-13 | 31.45
+ BSE          | 2018-09-13 | 31.45
+ NSE          | 2018-09-13 | 31.45
+ ANGELBROKING | 2018-09-13 | 31.45
+(4 rows)
+
+********* QUERY **********
+create table newly_acquired_stocks (
+symbol
+varchar(20) not null,
+n_shares
+integer not null,
+date_acquired
+date not null
+);
+**************************
+
+CREATE TABLE
+********* QUERY **********
+insert into newly_acquired_stocks select * from my_stocks where n_shares>100;
+**************************
+
+INSERT 0 2
+********* QUERY **********
+select * from newly_acquired_stocks;
+**************************
+
+ symbol | n_shares | date_acquired 
+--------+----------+---------------
+ NASDAQ |      110 | 2016-04-12
+ NSE    |      120 | 1997-01-01
+(2 rows)
+
+********* QUERY **********
+select my_stocks.symbol,my_stocks.n_shares,stock_prices.price,stock_prices.quote_date from my_stocks JOIN stock_prices ON my_stocks.symbol=stock_prices.symbol;
+**************************
+
+    symbol    | n_shares | price | quote_date 
+--------------+----------+-------+------------
+ NASDAQ       |      110 | 31.45 | 2018-09-13
+ BSE          |       90 | 31.45 | 2018-09-13
+ NSE          |      120 | 31.45 | 2018-09-13
+ ANGELBROKING |       95 | 31.45 | 2018-09-13
+(4 rows)
+
+********* QUERY **********
+insert into my_stocks(symbol,n_shares,date_acquired)
+values(NYSE,105,2017-05-08);
+**************************
+
+********* QUERY **********
+insert into my_stocks values('nyse',105,'2017-05-08');
+**************************
+
+INSERT 0 1
+********* QUERY **********
+select my_stocks.symbol,my_stocks.n_shares,stock_prices.price,stock_prices.quote_date from my_stocks JOIN stock_prices ON my_stocks.symbol=stock_prices.symbol;
+**************************
+
+    symbol    | n_shares | price | quote_date 
+--------------+----------+-------+------------
+ NASDAQ       |      110 | 31.45 | 2018-09-13
+ BSE          |       90 | 31.45 | 2018-09-13
+ NSE          |      120 | 31.45 | 2018-09-13
+ ANGELBROKING |       95 | 31.45 | 2018-09-13
+(4 rows)
+
+********* QUERY **********
+select my_stocks.symbol,my_stocks.n_shares,stock_prices.price,stock_prices.quote_date from my_stocks FULL OUTER JOIN stock_prices ON my_stocks.symbol=stock_prices.symbol;
+**************************
+
+    symbol    | n_shares | price | quote_date 
+--------------+----------+-------+------------
+ NASDAQ       |      110 | 31.45 | 2018-09-13
+ BSE          |       90 | 31.45 | 2018-09-13
+ NSE          |      120 | 31.45 | 2018-09-13
+ ANGELBROKING |       95 | 31.45 | 2018-09-13
+ nyse         |      105 |       | 
+(5 rows)
+
+********* QUERY **********
+create or replace function sym (string varchar)
+returns integer as $$
+declare
+ascii_total integer := 0;
+chars varchar[];
+c varchar;
+begin
+select regexp_split_to_array(string, '') into chars;
+foreach c in array chars
+loop
+ascii_total = ascii_total + ascii(c);
+end loop;
+return ascii_total;
+end;
+$$ LANGUAGE plpgsql;
+**************************
+
+CREATE FUNCTION
+********* QUERY **********
+select sym(symbol) from my_stocks;
+**************************
+
+ sym 
+-----
+ 440
+ 218
+ 230
+ 883
+ 447
+(5 rows)
+
+********* QUERY **********
+update stock_prices set price=sym(symbol);
+**************************
+
+UPDATE 4
+********* QUERY **********
+select * from stock_prices;
+**************************
+
+    symbol    | quote_date | price 
+--------------+------------+-------
+ NASDAQ       | 2018-09-13 |   440
+ BSE          | 2018-09-13 |   218
+ NSE          | 2018-09-13 |   230
+ ANGELBROKING | 2018-09-13 |   883
+(4 rows)
+
+********* QUERY **********
+CREATE OR REPLACE Function portfolio_value ()
+RETURNS NUMERIC
+AS $$
+DECLARE
+c1 CURSOR FOR SELECT * FROM my_stocks NATURAL LEFT OUTER JOIN stock_prices;
+total_val NUMERIC DEFAULT 0;
+stk_val NUMERIC DEFAULT 0;
+stk RECORD;
+BEGIN
+OPEN c1;
+LOOP
+FETCH c1 INTO stk;
+IF stk IS NOT NULL THEN
+IF stk.price>0 THEN
+stk_val := (stk.n_shares * stk.price);
+total_val := total_val + stk_val;
+ELSE
+stk_val := 0;
+END IF;
+RAISE NOTICE 'Value of: % = %', stk.symbol,stk_val;
+END IF;
+EXIT WHEN NOT FOUND;
+END LOOP;
+CLOSE c1;
+RETURN total_val;
+END;
+$$ LANGUAGE plpgsql;
+**************************
+
+CREATE FUNCTION
+********* QUERY **********
+select portfolio_value();
+**************************
+
+ portfolio_value 
+-----------------
+          179505
+(1 row)
+
+********* QUERY **********
+SELECT AVG(price) FROM stock_prices ;
+**************************
+
+         avg          
+----------------------
+ 442.7500000000000000
+(1 row)
+
+********* QUERY **********
+INSERT INTO my_stocks 
+select symbol, n_shares, NOW() from my_stocks NATURAL JOIN stock_prices, (SELECT AVG(price) as avgp FROM stock_prices) as avg_price WHERE stock_prices.price > avg_price.avgp;
+**************************
+
+INSERT 0 1
+********* QUERY **********
+select * from my_stocks ;
+**************************
+
+    symbol    | n_shares | date_acquired 
+--------------+----------+---------------
+ NASDAQ       |      110 | 2016-04-12
+ BSE          |       90 | 2008-12-12
+ NSE          |      120 | 1997-01-01
+ ANGELBROKING |       95 | 2017-05-25
+ nyse         |      105 | 2017-05-08
+ ANGELBROKING |       95 | 2018-09-13
+(6 rows)
+
+********* QUERY **********
+select * from my_stocks NATURAL FULL OUTER JOIN  stock_prices ;
+**************************
+
+    symbol    | n_shares | date_acquired | quote_date | price 
+--------------+----------+---------------+------------+-------
+ NASDAQ       |      110 | 2016-04-12    | 2018-09-13 |   440
+ BSE          |       90 | 2008-12-12    | 2018-09-13 |   218
+ NSE          |      120 | 1997-01-01    | 2018-09-13 |   230
+ ANGELBROKING |       95 | 2017-05-25    | 2018-09-13 |   883
+ nyse         |      105 | 2017-05-08    |            |      
+ ANGELBROKING |       95 | 2018-09-13    | 2018-09-13 |   883
+(6 rows)
+
+********* QUERY **********
+SELECT my_stocks.symbol, SUM(n_shares) total_shares_held, MAX(date_acquired) date_acquired from my_stocks group by my_stocks.symbol;
+**************************
+
+    symbol    | total_shares_held | date_acquired 
+--------------+-------------------+---------------
+ nyse         |               105 | 2017-05-08
+ NSE          |               120 | 1997-01-01
+ BSE          |                90 | 2008-12-12
+ NASDAQ       |               110 | 2016-04-12
+ ANGELBROKING |               190 | 2018-09-13
+(5 rows)
+
+********* QUERY **********
+SELECT my_stocks.symbol, SUM(n_shares) total_shares_held, MAX(date_acquired) date_acquired, stock_prices.price, (SUM(n_shares)*stock_prices.price) total_value_held FROM my_stocks NATURAL FULL OUTER JOIN stock_prices group by my_stocks.symbol, stock_prices.price ;
+**************************
+
+    symbol    | total_shares_held | date_acquired | price | total_value_held 
+--------------+-------------------+---------------+-------+------------------
+ nyse         |               105 | 2017-05-08    |       |                 
+ BSE          |                90 | 2008-12-12    |   218 |            19620
+ ANGELBROKING |               190 | 2018-09-13    |   883 |           167770
+ NSE          |               120 | 1997-01-01    |   230 |            27600
+ NASDAQ       |               110 | 2016-04-12    |   440 |            48400
+(5 rows)
+
+********* QUERY **********
+select my_stocks.symbol, SUM(n_shares) total_shares_held, MAX(date_acquired) date_acquired, stock_prices.price, (SUM(n_shares)*stock_prices.price) total_value_held from my_stocks NATURAL FULL OUTER JOIN stock_prices group by my_stocks.symbol, stock_prices.price having count(symbol)>1;
+**************************
+
+    symbol    | total_shares_held | date_acquired | price | total_value_held 
+--------------+-------------------+---------------+-------+------------------
+ ANGELBROKING |               190 | 2018-09-13    |   883 |           167770
+(1 row)
+
+********* QUERY **********
+CREATE VIEW stocks_i_like AS
+select my_stocks.symbol, SUM(n_shares) total_shares_held, MAX(date_acquired) date_acquired, stock_prices.price, (SUM(n_shares)*stock_prices.price) total_value_held from my_stocks NATURAL FULL OUTER JOIN stock_prices group by my_stocks.symbol, stock_prices.price having count(symbol)>1;
+**************************
+
+CREATE VIEW
+********* QUERY **********
+select * from stocks_i_like ;
+**************************
+
+    symbol    | total_shares_held | date_acquired | price | total_value_held 
+--------------+-------------------+---------------+-------+------------------
+ ANGELBROKING |               190 | 2018-09-13    |   883 |           167770
+(1 row)
+
+********* QUERY **********
+select * from stocks_i_like ;
+**************************
+
+    symbol    | total_shares_held | date_acquired | price | total_value_held 
+--------------+-------------------+---------------+-------+------------------
+ ANGELBROKING |               190 | 2018-09-13    |   883 |           167770
+(1 row)
