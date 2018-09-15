@@ -49,6 +49,9 @@
        </tr>
        <tr>
          <td scope="row">&nbsp;</td>
+				 <td> Export: <%= link_to "Json", :controller => :basics, :action => :quotations  ,  :format => :json, target: "_blank" %>
+              |<%= link_to "XML", :controller => :basics, :action => :quotations  ,  :format => :xml, target: "_blank" %></td>
+        <td>
          <td> Export: <%= link_to "Json", export_json_path, :target => :_blank %>
               |<%= link_to "XML", export_xml_path, :target => :_blank %></td>
        </tr>

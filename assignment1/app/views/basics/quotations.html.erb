@@ -3,8 +3,9 @@
 <%= form_tag(search_path, method: :get) do %>
   <%= text_field_tag :term %>
   <%= submit_tag 'Search' %>
+   <%= link_to "Clear", basics_quotations_path%>
 <% end %>
-
+ 
 
 
 <ul>
