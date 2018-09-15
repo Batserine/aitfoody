@@ -5,9 +5,12 @@ Rails.application.routes.draw do
   get 'fetch_news/:category', to: "assignment#fetch_news"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   # get "basics"     => "basics#quotations"
   get 'basics/export_json', as:'export_json'
   get 'basics/export_xml', as:'export_xml'
+=======
+>>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
 =======
 >>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
   get "basics/quotations"     => "basics#quotations"
