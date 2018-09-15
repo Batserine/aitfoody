@@ -4,15 +4,11 @@ Rails.application.routes.draw do
   get 'divide_by_zero' => 'assignment#divide_by_zero', as: 'divide_by_zero'
   get 'fetch_news/:category', to: "assignment#fetch_news"
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
   # get "basics"     => "basics#quotations"
   get 'basics/export_json', as:'export_json'
   get 'basics/export_xml', as:'export_xml'
-=======
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
-=======
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
+
   get "basics/quotations"     => "basics#quotations"
   get "basics/kill_quote/:id" => "basics#kill_quote"
   get "basics/search"         => "basics#search", :as => :search
