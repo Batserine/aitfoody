@@ -1,16 +1,16 @@
 
    <div class="container">
    		<br>
-		<h2>Group 8</h2>
+		<h2>Problem Set</h2>
 	    <table class="table table-bordered">
 		  <thead>
 		    <tr>
+		      <th scope="col">ProblemSet</th>
 		      <th scope="col">Topic</th>
 		      <th scope="col">Description</th>
 		    </tr>
 		  </thead>
 		  <tbody>
-<<<<<<< HEAD
 		    <tr>
 		      <th scope="row">PS1</th>
 		      <td>
@@ -77,22 +77,13 @@ Task 3.<br>
          <td scope="row">&nbsp;</td>
 				 <td> Export: <%= link_to "Json", :controller => :basics, :action => :quotations  ,  :format => :json, target: "_blank" %>
               |<%= link_to "XML", :controller => :basics, :action => :quotations  ,  :format => :xml, target: "_blank" %></td>
-        <td>
-<<<<<<< HEAD
-<<<<<<< HEAD
-         <td> Export: <%= link_to "Json", export_json_path, :target => :_blank %>
-              |<%= link_to "XML", export_xml_path, :target => :_blank %></td>
-=======
-=======
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
+        </td>
+         <td>
+
           Task 5.<br>
           - Implement export XML and Json by using  format.json and format.xml<br>
           - Lean how to convert ActiveRecord to XML from this link: <a href="https://stackoverflow.com/questions/40895141/how-to-convert-an-array-of-hashes-into-xml-in-rails" target="_blank">here</a><br>
         </td>
-<<<<<<< HEAD
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
-=======
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
        </tr>
        <tr>
          <td scope="row">&nbsp;</td>
@@ -101,9 +92,9 @@ Task 3.<br>
         - Create input box to import the quotations from another server.<br>
         - Add sample URL of web3 (http://web3.cs.ait.ac.th/ps2/quotations.xml) to import the quotations. Library open-uri and Nogorigi are used to fetch and extract xml.<br>
         </td>
-<<<<<<< HEAD
+
        </tr>
-<<<<<<< HEAD
+
 			  <tr>
                <td scope="row">&nbsp;</td>
                <td><%= link_to "Log File", "assign2sql_log.txt"%></td>
@@ -122,27 +113,13 @@ Task 3.<br>
                <td>SQL file<br/>
                -Contains all Queries used for these tasks.</td>
         </tr>
-=======
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
-=======
-       </tr>
->>>>>>> 902da505860ebd9b0ccaff3949de0d48f68c0cac
-=======
-			  <tr>
-               <td scope="row"><%= link_to 'Basics', basiclink_path %></td>
-                <td>
-                  - PS1: Divide-by-zero<br>
-                  - PS1: Google News<br>
-                  - PS2: Quotation<br>
-                  - PS2: SQL file, Log file<br>
-                </td>
-       </tr>
-        <tr>
-               <td scope="row"><%= link_to "Documents", "project_planning_group8.pdf"%></td>
-               <td>PS3: Project Planning</td>
-        </tr>
->>>>>>> c8f958b46e33cb40707b756940dd022ec0a7b363
 
+        <tr>
+          <td scope="row">PS3</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
 		  </tbody>
 		</table>
+    <%= link_to 'Back', project_path %>
 	</div>

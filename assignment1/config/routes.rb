@@ -16,8 +16,10 @@ Rails.application.routes.draw do
   # get "basics/read_txtfile" => "basics#read_txtfile" , :as => :read_txtfile
   # post "basics/import2db"  => "basics#import2db", :as => :import2db
   post "basics/import_xml"   => "basics#import_xml"
-  post "basics/quotations" => "basics#quotations" , :as => :quotation
-  get "basics/destroy"     => "basics#destroy_cookies"
+  post "basics/quotations"   => "basics#quotations" , :as => :quotation
+  get "basics/destroy"       => "basics#destroy_cookies"
+
+  get "basiclink"            => "assignment#basics"
 
   resources :assignment
   resources :basics

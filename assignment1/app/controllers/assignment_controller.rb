@@ -4,7 +4,6 @@ class AssignmentController < ApplicationController
    # GET /projects
   # GET /projects.json
   def index
-
     render 'index'
   end
   def divide_by_zero
@@ -95,5 +94,9 @@ class AssignmentController < ApplicationController
     end
 
     render 'news'
+  end
+
+  def basics
+    render 'basics'
   end
 end
