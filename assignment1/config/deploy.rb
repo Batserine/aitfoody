@@ -1,12 +1,11 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
 
-set :application, "assignment1-app"
+set :application, "assignment-app"
 set :repo_url, "git@ait-vision.org:web18-08"
 set :rbenv_type, :user
 set :rbenv_ruby, '2.5.1'
-set :repo_tree, 'assignment1-app'
-
+#set :bundle_gemfile,  "deploy/assignment-app/Gemfile"
 
 append :linked_files, "config/database.yml", "config/master.key"
 
