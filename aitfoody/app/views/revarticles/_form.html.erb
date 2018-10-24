@@ -1,0 +1,60 @@
+<%= form_with(model: revarticle, local: true) do |form| %>
+  <% if revarticle.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(revarticle.errors.count, "error") %> prohibited this revarticle from being saved:</h2>
+
+      <ul>
+      <% revarticle.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rating %>
+    <%= form.number_field :rating %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+<!--  <div class="field">-->
+    <%#= form.label :keywords %>
+    <%#= form.text_field :keywords %>
+<!--  </div>-->
+ <div class="field">
+   Type of Food
+   <select name="typefood">
+     <option value="">--Select--</option>
+     <option value="3">Thai Food</option>
+     <option value="4">Indian Food</option>
+     <option value="5">Japanese Food</option>
+     <option value="6">Chinese Food</option>
+     <option value="7">Western Food</option>
+     <option value="8">Dessert</option>
+     <option value="9">Snack</option>
+     <option value="10">Beverage</option>
+   </select>
+ </div>
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

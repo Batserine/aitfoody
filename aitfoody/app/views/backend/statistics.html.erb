@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+<h1>statistics</h1>
+<div class="form-group">
+  <label for="sel1">Select month:</label>
+     <%= select_month(Date.today)%>
+     <%= select_year(Date.today) %>
+</div>
+<% title_sex = "Registered users group by sex"
+   title_date = "Registered users group by month"
+%>
+<div class="row">
+  <div class="col-md-6">
+   <%= column_chart @users.group(:sex).count ,
+                 title: title_sex ,
+                 colors: ['green'],
+                 library: {
+                     tooltip: {
+                         pointFormat: 'Date: <b>{point.y}</b>'
+                     }
+                 }
+   %>
+  </div>
+  <div class="col-md-6">
+    <%= line_chart @users.group_by_day(:created_at).count,
+               title: title_date ,
+               colors: ['blue'],
+               library: {
+                   tooltip: {
+                       pointFormat: 'Date: <b>{point.y}</b>'
+                   }
+               } %>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+    var title_sex = '<%=title_sex %>';
+    $('#date_month').on('change', function() {
+        var month = this.value;
+        var year  =  $('#date_year').val();
+        create_chart(month, year);
+
+    });
+    $('#date_year').on('change', function() {
+        var month =  $('#date_month').val();
+        var year  = this.value;
+        create_chart(month, year);
+    });
+    function create_chart(month, year){
+        alert( month +'-'+ year);
+        $.ajax({
+            type: "POST",
+            url: "/api/create_chart_sex" ,
+            dataType: "json",
+            data: {"month": month , "year": year },
+            success: function(data) {
+                //chart-1 , group by sex
+                var chart = Chartkick.charts["chart-1"];
+                chart.updateData(data);
+            }
+        });
+        $.ajax({
+            type: "POST",
+            url: "/api/create_chart_createdAt" ,
+            dataType: "json",
+            data: {"month": month , "year": year },
+            success: function(data) {
+                //chart-2 , group by sex
+                var chart = Chartkick.charts["chart-2"];
+                chart.updateData(data);
+            }
+        });
+
+    }
+</script>

@@ -1,0 +1,63 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @revarticle.title %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @revarticle.content %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @revarticle.rating %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @revarticle.price %>
+</p>
+
+<p>
+  <strong>Food Type:</strong>
+  <%#= @revarticle.keywords %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @revarticle.location %>
+</p>
+
+<h2>Comments</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Comment</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @revarticle.comments.each do |comment_item| %>
+    <tr>
+      <td><%= comment_item.comment %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<br/>
+
+<h2>Add a comment:</h2>
+<%= form_for([@revarticle, @revarticle.comments.build]) do |f|%>
+  <div class="field">
+    <%= f.label :comment %>
+    <br/>
+    <%= f.text_field :comment %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<%= link_to 'Edit', edit_revarticle_path(@revarticle) %> |
+<%= link_to 'Back', revarticles_path %>

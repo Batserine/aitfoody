@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Review Articles</h1>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Rating</th>
+      <th>Price</th>
+      <th>Food Type</th>
+      <th>Location</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @revarticles.each do |revarticle| %>
+      <tr>
+        <td><%= revarticle.title %></td>
+        <td><%= revarticle.content %></td>
+        <td><%= revarticle.rating %></td>
+        <td><%= revarticle.price %></td>
+        <td>Thai Food</td>
+        <td><%= revarticle.location %></td>
+        <td><%= link_to 'Show', revarticle %></td>
+        <td><%= link_to 'Edit', edit_revarticle_path(revarticle) %></td>
+        <td><%= link_to 'Destroy', revarticle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Revarticle', new_revarticle_path %>

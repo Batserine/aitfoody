@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aitfoody</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <div class="container">
+  <% if flash[:error] %>
+    <div id="error">
+      <p><%= flash[:error] %></p>
+    </div>
+  <% elsif flash[:alert] %>
+    <div>
+      <p><%= flash[:alert] %></p>
+    </div>
+  <% end %>
+    <% if user_signed_in? %>
+      Welcome
+      <%= current_user.email %>! Not you?
+      <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+      <% puts current_user.role.name %>
+      <% if current_user.role.name == "Admin" %>
+        <%= link_to "Registered Users", manageUser_path %>
+        &nbsp;|
+        <%= link_to "Statistics", statistics_path %>
+      <% end %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path %>
+      or
+      <%= link_to "Sign in", new_user_session_path %>.
+    <% end %>
+    <%= yield %>
+
+  </div>
+  </body>
+</html>
