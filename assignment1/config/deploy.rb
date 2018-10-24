@@ -5,6 +5,7 @@ set :application, "assignment"
 set :repo_url, "git@ait-vision.org:web18-08"
 set :rbenv_type, :user
 set :rbenv_ruby, '2.5.1'
+set :repo_tree, "assignment1"
 #set :bundle_gemfile,  "deploy/assignment-app/Gemfile"
 
 append :linked_files, "config/database.yml", "config/master.key"
