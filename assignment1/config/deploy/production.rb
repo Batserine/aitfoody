@@ -9,7 +9,7 @@
 
 raise "Could not find BAZOOKA_USER environment variable. Please set it in your .bashrc!" unless ENV['BAZOOKA_USER']
 
-set :deploy_to, "/home/deploy/assignment1"
+set :deploy_to, "/home/deploy/assignment1-app"
 
 set :default_env, {'HTTP_PROXY'=>'192.41.170.23:3128',
                    'HTTPS_PROXY'=>'192.41.170.23:3128',

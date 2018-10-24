@@ -10,115 +10,6 @@
 		    </tr>
 		  </thead>
 		  <tbody>
-
-		    <tr>
-		      <th scope="row">PS1</th>
-		      <td>
- 				<%= link_to "Divide-by-zero", :controller => :assignment, :action => :divide_by_zero  %>
-		      </td>
-		      <td>
-		        - Generate assignment#divide_by_zero controller.</br>
-			    - Add 1/0 in assignment#divide_by_zero.</br>
-			    - Use logger.error to logs "About to divide by 0" before the errors occur.</li>
-			    - To hide a stack trace, we can run the project on production mode with command (rails server -e production).</br>
-			    - If we want to show errors on production mode, we can config at config/environments/production.rb and then set "config.consider_all_requests_local = true".</br>
-		      </td>
-		    </tr>
-		    <tr>
-		      <th scope="row">&nbsp;</th>
-		      <td>Google News : <%= link_to "Headlines", :controller => :assignment, :action => :fetch_news , "category"=>"headlines" %> |
-	      		 <%= link_to "World", :controller => :assignment, :action => :fetch_news, "category"=>"world" %>
-	       	  </td>
-		      <td>
-	    		 - Get URL paths from Google news in category headlines and worlds.</br>
-	    		 - Use open-uri to fetch HTML data from URL paths.</br>
-	    		 - Use inspect elements in Firefox to browse title, picture,and links tag of each article.</br>
-	    		 - Use Nokoriki to extract data in HTML.</br>
-	    		 - When deploy the project on server, we need to set proxy.</br> ("http://192.41.170.23:3128") before fetch HTML data.</br>
-	    	  </td>
-		    </tr>
-        <tr>
-         <th scope="row">PS2</th>
-
-         <td>
-         <%= link_to "Quotation", :controller => :basics, :action => :quotations %>
-         </td>
-         <td>
-           Task1.<br>
--We create model: rails generate model quotation author_name:string category:string quote:string<br>
--rake db:migrate<br>
--I insert nice quotations into database by using ORM. For example :<br>
- >> qu = Quotation.create(author_name: "Anne Slater", category: "cat1", quote: "A woman needs four animals in her life. A mink in the closet. A jaguar in the garage. A tiger in bed. And an ass to pay for it all.")<br>
- >> qu.save<br>
-           Task 2.<br>
-- Edit pseudocode and fixed errors.<br>
-- Add select box for exist category. I group by category and added it into select box.<br>
-- How to use select_tag (select box) : <a href="https://apidock.com/rails/ActionView/Helpers/FormTagHelper/select_tag" target="_blank">here </a><br>
-- Checked the values of category in form. If users do not select the exist categories, they can add new category. If users select some categories, new category box will be diable.<br>
-Task 3.<br>
-- Create search box. We look sample search from these links: <a href="https://rubyplus.com/articles/3381-Simple-Search-Form-in-Rails-5" target="_blank">here </a><br>
-- We learn how to use where conditions for search from this link:<br>
- <a href="https://stackoverflow.com/questions/9708409/rails-how-to-find-by-a-field-containing-a-certain-string" target="_blank">How to find_by a field containing a certain string</a><br>
-- Deal with search cover the case-insensitive by using “ILIKE”<br>
-- Learn how to search multiple columns from this link: <a href="https://stackoverflow.com/questions/9379884/search-multiple-columns-rails" target="_blank">here </a><br>
-- Implement personalization of the quotation by using cookies. In the task, we learn how to create and destroy cookies<br>
-   <a href="https://stackoverflow.com/questions/1232174/rails-cookies-set-start-date-and-expire-date" target="_blank">How to using Cookies and set expired date.</a><br>
-- Users can delete quote and it will not effects to other users. To do this task, I keep id of quote which users are deleted. We use SQL condition “where not” to filter the quote’s id list in cookies.<br>
-   <a href="https://rubyplus.com/articles/3171-Rails-5-ActiveRecord-where-find-by-or-not-and-Eager-Loading" target="_blank">How to use where and where not conditions.</a><br>
-   Task 4.<br>
-  - Implement personalization of the quotation by using cookies. In the task, we learn how to create and destroy cookies.<br>
-    <a href="https://stackoverflow.com/questions/1232174/rails-cookies-set-start-date-and-expire-date" target="_blank">How to using Cookies and set expired date</a><br>
-  - Users can delete quote and it will not effects to other users. To do this task, I keep id of quote which users are deleted. We use SQL condition “where not” to filter the quote’s id list in cookies.<br>
-  -   <a href="https://rubyplus.com/articles/3171-Rails-5-ActiveRecord-where-find-by-or-not-and-Eager-Loading" target="_blank">How to use where and where not conditions.</a><br>
-         </td>
-
-       </tr>
-       <tr>
-         <td scope="row">&nbsp;</td>
-				 <td> Export: <%= link_to "Json", :controller => :basics, :action => :quotations  ,  :format => :json, target: "_blank" %>
-              |<%= link_to "XML", :controller => :basics, :action => :quotations  ,  :format => :xml, target: "_blank" %>  URl format
-              
-
-           Export: <%= link_to "Json", export_json_path, :target => :_blank %>
-              |<%= link_to "XML", export_xml_path, :target => :_blank %>  File format</td>
-
-          <td>Task 5.<br>
-          - Implement export XML and Json by using  format.json and format.xml<br>
-          - Lean how to convert ActiveRecord to XML from this link: <a href="https://stackoverflow.com/questions/40895141/how-to-convert-an-array-of-hashes-into-xml-in-rails" target="_blank">here</a><br>
-        </td>
-
-       </tr>
-       <tr>
-         <td scope="row">&nbsp;</td>
-         <td> Import: <%= link_to "XML", :controller => :basics, :action => :import_xml %>  </td>
-         <td>Task 6.<br>
-        - Create input box to import the quotations from another server.<br>
-        - Add sample URL of web3 (http://web3.cs.ait.ac.th/ps2/quotations.xml) to import the quotations. Library open-uri and Nogorigi are used to fetch and extract xml.<br>
-        </td>
-
-      </tr>
-
-			  <tr>
-               <td scope="row">&nbsp;</td>
-               <td><%= link_to "Log File", "assign2sql_log.txt"%></td>
-               <td>SQL Tasks<br/>
-               -Contains the log file of all Queries and their results</td>
-       </tr>
-        <tr>
-               <td scope="row">&nbsp;</td>
-               <td><%= link_to "Text File", "assignsql.txt"%></td>
-               <td>Text file to provide data<br/>
-                       -Contains the symbol, no.of shares, date that we provide. The Columns are seperated by tab as "E '\t' " delimiter</td>
-        </tr>
-         <tr>
-               <td scope="row">&nbsp;</td>
-               <td><%= link_to "SQL File", "assign2sql.sql"%></td>
-               <td>SQL file<br/>
-               -Contains all Queries used for these tasks.</td>
-        </tr>
-
-       </tr>
-
 			  <tr>
                <td scope="row"><%= link_to 'Basics', basiclink_path %></td>
                 <td>
@@ -130,7 +21,11 @@ Task 3.<br>
        </tr>
         <tr>
                <td scope="row"><%= link_to "Documents", "project_planning_group8.pdf"%></td>
-               <td>PS3: Project Planning</td>
+               <td>PS3: Project Planning<br>
+               <%= link_to "Issue Tracker(Trello)", " https://trello.com/b/dzOUMJ2X/wae-group8"%><br>
+                       <%= link_to "Continuous integration(Jenkins)", "jenkins"%><br>
+                       <%= link_to "Database dump", "database.dump"%></td>
+</td>
         </tr>
 
 

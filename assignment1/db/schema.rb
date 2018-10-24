@@ -15,12 +15,4 @@ ActiveRecord::Schema.define(version: 2018_09_13_014748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "quotations", force: :cascade do |t|
-    t.string "author_name"
-    t.string "category"
-    t.string "quote"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end
