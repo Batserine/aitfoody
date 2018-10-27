@@ -15,6 +15,7 @@ class BasicsController < ApplicationController
     else
       @quotation = Quotation.new
     end
+    #------ Group  Category -----
     @categories = Quotation.select("category").group(:category)
     #------ Check cookies ------------
     if  cookies[:my_quote].present?
@@ -79,7 +80,7 @@ class BasicsController < ApplicationController
       # where ILIKE and where NOT IN query ID in cookies
       if  cookies[:my_quote].present?
         killed_quote_list = cookies[:my_quote].split(',')
-        @quotations = Quotation.where('quote ILIKE :search OR author_name ILIKE :search',searcrah: "%#{params[:term]}%" ).where.not(id: killed_quote_list)
+        @quotations = Quotation.where('quote ILIKE :search OR author_name ILIKE :search',search: "%#{params[:term]}%" ).where.not(id: killed_quote_list)
       else
         @quotations = Quotation.where('quote ILIKE :search OR author_name ILIKE :search',search: "%#{params[:term]}%" )
       end
@@ -184,8 +185,10 @@ end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def quotation_params
-
-    unless params[:category_exist].nil?
+    puts "---- category ----"
+    puts params[:quotation][:category]
+    if params[:category_exist] != ""
+      puts "---- category Exist----"
       params[:quotation][:category] = params[:category_exist]
     end
     params.require(:quotation).permit(:author_name,:category,:quote)
