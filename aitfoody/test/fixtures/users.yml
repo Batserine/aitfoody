@@ -4,8 +4,16 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-# column: value
+one:
+  id: 1
+  email: "admin@ait.asia"
+  encrypted_password: "$2a$11$8n5MUM26cI/YMEdJmnNVYurse2bWjexuSJ6SA1gU4swJOlvDHOv52"
+two:
+  id: 2
+  email: "reviewer@ait.asia"
+  encrypted_password: "$2a$11$jcox7eytrV.ohXr/VnIbFemTmf7ocMDYTrNkrmStyGEKdPeuIUav6"
+three:
+  id: 3
+  email: "user@ait.asia"
+  encrypted_password: "$2a$11$sN72zgHJuF2wx9ZN1ft9tuwenWceWsTgVraPbHi91aDCmAgX.qpji"
+

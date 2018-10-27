@@ -37,17 +37,8 @@
 <!--  </div>-->
  <div class="field">
    Type of Food
-   <select name="typefood">
-     <option value="">--Select--</option>
-     <option value="3">Thai Food</option>
-     <option value="4">Indian Food</option>
-     <option value="5">Japanese Food</option>
-     <option value="6">Chinese Food</option>
-     <option value="7">Western Food</option>
-     <option value="8">Dessert</option>
-     <option value="9">Snack</option>
-     <option value="10">Beverage</option>
-   </select>
+   <%= select_tag "typefood", options_for_select(@typefood.collect{ |f| [f.name, f.id]}, :selected=> revarticle.typefood_id), {:class =>"select_combobox", prompt: " --- Select ---" }%>
+
  </div>
   <div class="field">
     <%= form.label :location %>

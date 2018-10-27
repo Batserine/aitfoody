@@ -16,16 +16,19 @@ class RevarticlesController < ApplicationController
 
   # GET /revarticles/new
   def new
+    @typefood = Typefood.all
     @revarticle = Revarticle.new
   end
 
   # GET /revarticles/1/edit
   def edit
+    @typefood = Typefood.all
   end
 
   # POST /revarticles
   # POST /revarticles.json
   def create
+
     @revarticle = Revarticle.new(revarticle_params)
     @revarticle.user = current_user
     puts '----params---'
@@ -46,9 +49,12 @@ class RevarticlesController < ApplicationController
   # PATCH/PUT /revarticles/1.json
   def update
     @revarticle.user = current_user
+    puts '----params---'
+    puts  params[:typefood]
+    # @revarticle.typefood_id = params[:typefood]
     respond_to do |format|
 
-      if @revarticle.update(revarticle_params)
+      if @revarticle.update(revarticle_params.merge(typefood_id: params[:typefood].to_i))
         format.html { redirect_to @revarticle, notice: 'Revarticle was successfully updated.' }
         format.json { render :show, status: :ok, location: @revarticle }
       else

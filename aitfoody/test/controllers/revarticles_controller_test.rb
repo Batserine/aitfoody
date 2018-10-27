@@ -1,7 +1,9 @@
 require 'test_helper'
 
 class RevarticlesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+    sign_in users(:one)
     @revarticle = revarticles(:one)
   end
 
@@ -32,9 +34,9 @@ class RevarticlesControllerTest < ActionDispatch::IntegrationTest
     get edit_revarticle_url(@revarticle)
     assert_response :success
   end
-
+#@revarticle.title
   test "should update revarticle" do
-    patch revarticle_url(@revarticle), params: { revarticle: { content: @revarticle.content, keywords: @revarticle.keywords, location: @revarticle.location, price: @revarticle.price, rating: @revarticle.rating, title: @revarticle.title } }
+    patch revarticle_url(@revarticle), params: { revarticle: { content: @revarticle.content, keywords: @revarticle.keywords, location: @revarticle.location, price: @revarticle.price, rating: @revarticle.rating, title: "Taro" } }
     assert_redirected_to revarticle_url(@revarticle)
   end
 

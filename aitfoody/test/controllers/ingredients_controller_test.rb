@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class IngredientsControllerTest < ActionDispatch::IntegrationTest
+  # include Devise::Test::IntegrationHelpers
   setup do
+
     @ingredient = ingredients(:one)
+    # sign_in users(:one)
   end
 
   test "should get index" do
@@ -32,9 +35,9 @@ class IngredientsControllerTest < ActionDispatch::IntegrationTest
     get edit_ingredient_url(@ingredient)
     assert_response :success
   end
-
+#@ingredient.name
   test "should update ingredient" do
-    patch ingredient_url(@ingredient), params: { ingredient: { name: @ingredient.name } }
+    patch ingredient_url(@ingredient), params: { ingredient: { name: "chicken" } }
     assert_redirected_to ingredient_url(@ingredient)
   end
 

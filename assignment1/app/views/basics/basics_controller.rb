@@ -8,7 +8,7 @@
 #   (use "git pull" to merge the remote branch into yours)
 #
 # Changes to be committed:
-	modified:   basics_controller.rb
+# 	modified:   basics_controller.rb
 #
 # Changes not staged for commit:
 #	modified:   ../views/assignment/index.html.erb

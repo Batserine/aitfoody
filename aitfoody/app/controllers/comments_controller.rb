@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :edit, :update, :destroy]
   before_action :set_revarticle, only: [:create]
   before_action :authenticate_user!, except: [:index, :show]
-
+  # validates_presence_of :comment
   # GET /comments
   # GET /comments.json
   def index

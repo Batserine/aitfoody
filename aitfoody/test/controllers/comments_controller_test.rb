@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
+
     @comment = comments(:one)
+    sign_in users(:one)
   end
 
   test "should get index" do
@@ -32,9 +35,9 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     get edit_comment_url(@comment)
     assert_response :success
   end
-
+ #@comment.comment
   test "should update comment" do
-    patch comment_url(@comment), params: { comment: { comment: @comment.comment } }
+    patch comment_url(@comment), params: { comment: { comment: "Good" } }
     assert_redirected_to comment_url(@comment)
   end
 

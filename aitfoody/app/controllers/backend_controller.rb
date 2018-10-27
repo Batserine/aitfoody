@@ -1,5 +1,5 @@
 class BackendController < ApplicationController
-
+  before_action :authenticate_user!, except: [:index, :show]
   def show_user
     @users = User.all
     render 'show_user'
