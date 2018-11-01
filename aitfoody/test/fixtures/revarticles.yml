@@ -1,15 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   title: "Thai basil chicken recipe"
   content: "review content"
   rating: 5
   price: 35
   location: "TU canteen"
+  typefood : thaifood
 
 two:
+  id: 2
   title: "Thai fried rice with shrimp"
   content: "review content"
   rating: 4
   price: 40
   location: "TU canteen"
+  typefood : thaifood

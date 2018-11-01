@@ -4,6 +4,7 @@ class RevarticlesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   setup do
     sign_in users(:one)
+    @typefood   = typefoods(:thaifood)
     @revarticle = revarticles(:one)
   end
 
@@ -36,7 +37,7 @@ class RevarticlesControllerTest < ActionDispatch::IntegrationTest
   end
 #@revarticle.title
   test "should update revarticle" do
-    patch revarticle_url(@revarticle), params: { revarticle: { content: @revarticle.content, keywords: @revarticle.keywords, location: @revarticle.location, price: @revarticle.price, rating: @revarticle.rating, title: "Taro" } }
+    patch revarticle_url(@revarticle), params: { revarticle: { content: @revarticle.content, location: @revarticle.location, price: @revarticle.price, rating: @revarticle.rating, title: "Taro", typefood: @typefood.id } }
     assert_redirected_to revarticle_url(@revarticle)
   end
 

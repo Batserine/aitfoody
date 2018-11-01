@@ -8,12 +8,15 @@ one:
   id: 1
   email: "admin@ait.asia"
   encrypted_password: "$2a$11$8n5MUM26cI/YMEdJmnNVYurse2bWjexuSJ6SA1gU4swJOlvDHOv52"
+  role: one
 two:
   id: 2
   email: "reviewer@ait.asia"
   encrypted_password: "$2a$11$jcox7eytrV.ohXr/VnIbFemTmf7ocMDYTrNkrmStyGEKdPeuIUav6"
+  role: two
 three:
   id: 3
   email: "user@ait.asia"
   encrypted_password: "$2a$11$sN72zgHJuF2wx9ZN1ft9tuwenWceWsTgVraPbHi91aDCmAgX.qpji"
+  role: three
 

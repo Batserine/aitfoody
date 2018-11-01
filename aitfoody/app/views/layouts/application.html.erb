@@ -24,8 +24,12 @@
       Welcome
       <%= current_user.email %>! Not you?
       <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-      <% puts current_user.role.name %>
-      <% if current_user.role.name == "Admin" %>
+
+      <%
+         role_user = current_user.role.name if current_user.role
+         if role_user == "Admin" %>
+        <%= link_to "SiteAdmin", rails_admin_path %>
+        |
         <%= link_to "Registered Users", manageUser_path %>
         &nbsp;|
         <%= link_to "Statistics", statistics_path %>

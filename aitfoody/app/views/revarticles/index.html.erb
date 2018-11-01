@@ -22,7 +22,7 @@
         <td><%= revarticle.content %></td>
         <td><%= revarticle.rating %></td>
         <td><%= revarticle.price %></td>
-        <td>Thai Food</td>
+        <td><%= revarticle.typefood.name if revarticle.typefood%></td>
         <td><%= revarticle.location %></td>
         <td><%= link_to 'Show', revarticle %></td>
         <td><%= link_to 'Edit', edit_revarticle_path(revarticle) %></td>

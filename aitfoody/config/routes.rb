@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => '/admin', :as => :rails_admin
   resources :ingredients
   devise_for :users
   resources :comments
@@ -18,5 +20,6 @@ Rails.application.routes.draw do
   post "api/create_chart_createdAt"  => "api#create_chart_createdAt" , :as => :createChartCreatedAt
   get  "backend/users" => "backend#show_user",  :as => :manageUser
   get  "backend/statistics" => "backend#show_statistics",  :as => :statistics
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
