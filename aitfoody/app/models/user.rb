@@ -21,4 +21,8 @@ class User < ApplicationRecord
     self.role.name == "User" if !self.role.blank?
   end
 
+
+  def self.find_version_author(version)
+    find(version.terminator)
+  end
 end

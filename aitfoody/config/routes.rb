@@ -12,6 +12,14 @@ Rails.application.routes.draw do
   resources :revarticles do
     resources :ingredients
   end
+  resources :revarticles do
+    resources :versions, only: [:destroy] do
+      member do
+        get :diff, to: 'versions#diff'
+        patch :rollback, to: 'versions#rollback'
+      end
+    end
+  end
   root "revarticles#index"
 
   post "revarticles/:id"   => "comments#create"  , :as => :addComments

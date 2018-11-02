@@ -27,7 +27,9 @@ gem 'groupdate'
 gem 'remotipart', github: 'mshibuya/remotipart'
 gem 'rails_admin', github: 'sferik/rails_admin'
 gem 'rails_admin_rollincode', '~> 1.0'
-
+#model versioning
+gem 'paper_trail'
+gem 'diffy'
 group :test do
   gem 'cucumber-rails', :require => false
 # database_cleaner is not required, but highly recommended
