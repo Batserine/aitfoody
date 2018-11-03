@@ -1,6 +1,7 @@
 FactoryBot.define do
 
   factory :admin, class: User do
+
     sequence(:email) { |n| "#{n}@ait.asia" } # Unique title for every account
     password {"password"}
     password_confirmation {"password"}
@@ -13,6 +14,7 @@ FactoryBot.define do
     name {"Snack"}
   end
   factory :user, class: User do
+    id 5
     email {"st120577@ait.asia"}
     password {"password"}
     password_confirmation {"password"}

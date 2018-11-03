@@ -23,21 +23,44 @@ When("I visit the article page") do
   visit '/revarticles'
 end
 
-Then("I should see a link for the manage user") do
-  expect(page).to have_link('Registered Users', href: manageUser_path())
+Then("I should see a link for site admin") do
+  expect(page).to have_link('SiteAdmin', href: rails_admin_path())
 end
 
-When("I click the link for the manage user") do
-  find_link('Registered Users', href: manageUser_path()).click
+When("I click the link for site admin") do
+  find_link('SiteAdmin', href: rails_admin_path()).click
+end
+
+Then("I should see the dashboard that show the list of all models") do
+  expect(page).to have_selector('table th', text: 'Model name')
+  expect(page).to have_selector('table th', text: 'Last created')
+  expect(page).to have_selector('table th', text: 'Records')
+end
+
+When("I click the link for manage users") do
+  find_link('Users', href: '/admin/user').click
 end
 
 Then("I should see the list of registered users") do
-  expect(page).to have_selector('table')
+  expect(page).to have_selector('table th', text: 'Email')
+  expect(page).to have_selector('table th', text: 'Created at')
+  expect(page).to have_selector('table th', text: 'Updated at')
+  page.has_xpath?('//table/tr')
 end
 #------Ban User-----
-When("I click the checkbox for ban a user") do
-  # find(:checkbox, "ban_cb[0]").set(true)
-  find(:css, "#ban_cb_0", :visible => false).click
+When("I click edit button for updating user's information") do
+
+  find(:xpath, "//table//tr[td[contains(.,\"#{@user.id}\")]] //a[contains(@href, '/admin/user/#{@user.id}/edit')]").click
+
+  #icon-pencil
+end
+
+Then("I should see a checkbox for inactive a user") do
+  expect(page).to have_selector('#user_active_status')
+end
+
+When("I click uncheck at active status for inactive a user") do
+  uncheck('Active status')
 end
 
 #------Statistics-----
