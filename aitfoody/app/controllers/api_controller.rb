@@ -30,4 +30,9 @@ class ApiController < ApplicationController
     date_end   =  today.end_of_month
     render json:  User.where("created_at > ? AND created_at < ?", date_begin, date_end).group_by_day(:created_at).count
   end
+  def search
+    # @revarticles = Revarticle.where("approved = ?" , true)
+    @revarticles = Revarticle.where('title ILIKE :search OR content ILIKE :search',search: "%#{params[:term]}%" ).where('approved = ?', true)
+    render 'revarticles/index'
+  end
 end

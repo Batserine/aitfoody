@@ -6,7 +6,9 @@ class RevarticlesController < ApplicationController
   # GET /revarticles
   # GET /revarticles.json
   def index
-    @revarticles = Revarticle.all
+    # @revarticles = Revarticle.all
+    # show approved articles only
+    @revarticles = Revarticle.where("approved = ?" , true)
   end
 
   # GET /revarticles/1
