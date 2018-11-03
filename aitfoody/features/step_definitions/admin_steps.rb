@@ -49,10 +49,7 @@ Then("I should see the list of registered users") do
 end
 #------Ban User-----
 When("I click edit button for updating user's information") do
-
   find(:xpath, "//table//tr[td[contains(.,\"#{@user.id}\")]] //a[contains(@href, '/admin/user/#{@user.id}/edit')]").click
-
-  #icon-pencil
 end
 
 Then("I should see a checkbox for inactive a user") do
@@ -76,4 +73,31 @@ Then("I should see the charts of registered users") do
   find(:css, '#chart-1').text
   find(:css, '#chart-2').text
   # chart registered users group by sex and registered users  group by date
+end
+
+#-------Add Approve/Reject & Comment---------
+When("I click the link for manage reviews food articles") do
+  find_link('Revarticles', href: '/admin/revarticle').click
+end
+
+Then("I should see the list of reviews food articles") do
+  expect(page).to have_selector('table th', text: 'Title')
+  expect(page).to have_selector('table th', text: 'Content')
+  expect(page).to have_selector('table th', text: 'Rating')
+  expect(page).to have_selector('table th', text: 'Price')
+  page.has_xpath?('//table/tr')
+end
+
+When("I click edit button for updating an article's information") do
+  find(:xpath, "//table//tr[td[contains(.,\"#{@article.id}\")]] //a[contains(@href, '/admin/revarticle/#{@article.id}/edit')]").click
+end
+
+Then("I should see a checkbox and message box for approving an article") do
+  expect(page).to have_selector('#revarticle_approved')
+  expect(page).to have_selector('#revarticle_message')
+end
+
+When("I click checkbox at approve status and write some messages for approve article.") do
+  check('Approved')
+  fill_in('Message', :with => 'approved successfully')
 end

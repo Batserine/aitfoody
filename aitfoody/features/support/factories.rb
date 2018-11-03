@@ -22,6 +22,7 @@ FactoryBot.define do
   end
 
   factory :article , class: Revarticle do
+    id 3
     title "Taro"
     content "Taro content"
     rating 3
