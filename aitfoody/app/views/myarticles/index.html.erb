@@ -6,6 +6,7 @@
 <table class="table table-bordered">
   <thead>
   <tr>
+    <th>Id</th>
     <th>Title</th>
     <th>Content</th>
     <th>Rating</th>
@@ -20,6 +21,7 @@
   <tbody>
   <% @revarticles.each do |revarticle| %>
     <tr>
+      <td><%= revarticle.id %></td>
       <td><%= revarticle.title %></td>
       <td><%= revarticle.content %></td>
       <td><%= revarticle.rating %></td>

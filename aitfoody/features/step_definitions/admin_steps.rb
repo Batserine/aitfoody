@@ -50,6 +50,8 @@ end
 #------Ban User-----
 When("I click edit button for updating user's information") do
   find(:xpath, "//table//tr[td[contains(.,\"#{@user.id}\")]] //a[contains(@href, '/admin/user/#{@user.id}/edit')]").click
+  # find(:xpath, "//table//tr//td//a[contains(@href, '/admin/user/5/edit')]").click
+  # expect(page).to have_content('/admin/user/#{@user.id}/edit')
 end
 
 Then("I should see a checkbox for inactive a user") do

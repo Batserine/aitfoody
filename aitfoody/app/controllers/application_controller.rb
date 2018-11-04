@@ -4,8 +4,7 @@ class ApplicationController < ActionController::Base
     # redirect_to root_url
      redirect_to main_app.root_path, alert: exception.message
   end
-
-
+  #----initial for model version-----
   def require_user
     redirect_to new_session_path unless current_user.id
   end

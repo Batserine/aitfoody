@@ -30,7 +30,7 @@ class RevarticlesController < ApplicationController
   # POST /revarticles
   # POST /revarticles.json
   def create
-
+    @typefood = Typefood.all
     @revarticle = Revarticle.new(revarticle_params)
     @revarticle.user = current_user
     puts '----params---'
