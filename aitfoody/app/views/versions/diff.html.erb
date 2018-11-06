@@ -23,6 +23,14 @@
         <strong>Location:</strong>
         <%= diff(@version.reify.location, @revarticle.location) %>
       </p>
+      <p>
+        <strong>Approve Status:</strong>
+        <%= diff(@version.reify.approved, @revarticle.approved) %>
+      </p>
+      <p>
+        <strong>Message from Admin:</strong>
+        <%= diff(@version.reify.message, @revarticle.message) %>
+      </p>
     </div>
     <p>
       <%= "Version authored by #{find_version_author_name(@version)} on #{@version.created_at} by '#{@version.event.humanize}'." %>

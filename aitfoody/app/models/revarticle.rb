@@ -10,8 +10,8 @@ class Revarticle < ApplicationRecord
   validates_presence_of :title
   validates_uniqueness_of :title
 
-  has_paper_trail
-
+  # has_paper_trail
+  has_paper_trail on: [:update]
   def user_name
     user ? user.email : ''
   end

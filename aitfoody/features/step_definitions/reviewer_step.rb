@@ -80,23 +80,23 @@ Given("I want to update reviews food articles") do
   puts @article2.user_id
 end
 
-# When("I click button for updating article's information") do
-#   # expect(page).to have_content('Edits')
-#   find(:xpath, "//table/tbody/tr/td/a[contains(@href, '/revarticles/#{@article2.id}/edit')]").click
-#
-# end
-#
-# Then("I should see a form for editing article's information") do
-#   pending # Write code here that turns the phrase above into concrete actions
-# end
-#
-# When("I update article's information and click save button") do
-#   pending # Write code here that turns the phrase above into concrete actions
-# end
-#
-# Then("I should see a message which notify that reviews food article was updated successfully") do
-#   pending # Write code here that turns the phrase above into concrete actions
-# end
+When("I click button for updating article's information") do
+  # expect(page).to have_content('Edits')
+  find(:xpath, "//table/tbody/tr/td/a[contains(@href, '/revarticles/#{@article2.id}/edit')]").click
+
+end
+
+Then("I should see a form for editing article's information") do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When("I update article's information and click save button") do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then("I should see a message which notify that reviews food article was updated successfully") do
+  pending # Write code here that turns the phrase above into concrete actions
+end
 
 # ------Delete--------------
 Given("I want to delete reviews food articles") do

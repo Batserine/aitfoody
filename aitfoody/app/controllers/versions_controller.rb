@@ -1,6 +1,6 @@
 class VersionsController < ApplicationController
   before_action :require_user
-  # before_action :authenticate_user!, :except => [:index, :show]
+  before_action :authenticate_user!, :except => [:index, :show]
   before_action :set_revarticle_and_version, only: [:diff, :rollback, :destroy]
 
   def diff

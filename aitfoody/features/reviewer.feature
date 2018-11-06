@@ -24,10 +24,10 @@ Feature: Reviewer
     Then I should see a link for managing my reviews food articles
     When I click the link for managing my reviews food articles
     Then I should see the list of my reviews food articles
-#    When I click button for updating article's information
-#    Then I should see a form for editing article's information
-#    When I update article's information and click save button
-#    Then I should see a message which notify that reviews food article was updated successfully
+    When I click button for updating article's information
+    Then I should see a form for editing article's information
+    When I update article's information and click save button
+    Then I should see a message which notify that reviews food article was updated successfully
 
   Scenario: Deleting a Reviews Food Article
   A reviewer should be able to delete a reviews food article

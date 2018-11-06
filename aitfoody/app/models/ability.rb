@@ -15,6 +15,9 @@ class Ability
       can :create, Revarticle
       can :update, Revarticle
       can :destroy, Revarticle
+      can :read, Comment
+      can :create, Comment
+      # can :destroy, Comment
       # can :update, Revarticle do |revarticle|
       #   revarticle.try(:user) == user
       # end
@@ -25,7 +28,7 @@ class Ability
         can :read, Revarticle
         can :read, Comment
         can :create, Comment
-        can :destroy, Comment
+        # can :destroy, Comment
         # can :destroy, Comment do |revarticle|
         #   revarticle.try(:user) == user
         # end
