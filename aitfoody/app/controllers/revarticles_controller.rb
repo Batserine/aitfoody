@@ -6,7 +6,9 @@ class RevarticlesController < ApplicationController
   # GET /revarticles
   # GET /revarticles.json
   def index
-    @revarticles = Revarticle.all
+    # @revarticles = Revarticle.all
+    # show approved articles only
+    @revarticles = Revarticle.where("approved = ?" , true)
   end
 
   # GET /revarticles/1
@@ -28,7 +30,7 @@ class RevarticlesController < ApplicationController
   # POST /revarticles
   # POST /revarticles.json
   def create
-
+    @typefood = Typefood.all
     @revarticle = Revarticle.new(revarticle_params)
     @revarticle.user = current_user
     puts '----params---'

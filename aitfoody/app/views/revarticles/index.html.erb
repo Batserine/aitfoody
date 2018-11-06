@@ -1,5 +1,8 @@
 <p id="notice"><%= notice %></p>
-
+<%= form_tag(search_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :term, params[:search], placeholder: "Search Articles" %>
+  <%= submit_tag "Search", class: 'btn btn-default' %>
+<% end %>
 <h1>Review Articles</h1>
 
 <table class="table table-bordered">

@@ -38,7 +38,6 @@
  <div class="field">
    Type of Food
    <%= select_tag "typefood", options_for_select(@typefood.collect{ |f| [f.name, f.id]}, :selected=> revarticle.typefood_id), {:class =>"select_combobox", prompt: " --- Select ---" }%>
-
  </div>
   <div class="field">
     <%= form.label :location %>

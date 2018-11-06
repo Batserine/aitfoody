@@ -39,7 +39,6 @@ Feature: Admin
     When I click the link for the statistics
     Then I should see the charts of registered users
 
-
   Scenario: Approve/Reject Reviews Food Articles
   An admin should be able to approve/reject reviews food articles.
     Given I am an admin

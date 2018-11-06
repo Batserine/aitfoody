@@ -24,14 +24,17 @@
           <% if user_signed_in? %>
             <% role_user = current_user.role.name if current_user.role
               if role_user == "Admin" %>
-
                 <li class="nav-item">
                   <%= link_to "SiteAdmin", rails_admin_path , :class => "nav-link"%>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Statistics", statistics_path , :class => "nav-link"%>
                 </li>
-            <% end %>
+              <% elsif role_user == "Reviewer" %>
+                <li class="nav-item">
+                  <%= link_to "My Articles", myRevarticles_path , :class => "nav-link"%>
+                </li>
+              <% end %>
           <% end %>
 <!--          <li class="nav-item dropdown">-->
 <!--            <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>-->
