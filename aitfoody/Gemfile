@@ -30,6 +30,9 @@ gem 'rails_admin_rollincode', '~> 1.0'
 #model versioning
 gem 'paper_trail'
 gem 'diffy'
+#upload image
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick', '~> 4.3'
 group :test do
   gem 'cucumber-rails', :require => false
 # database_cleaner is not required, but highly recommended

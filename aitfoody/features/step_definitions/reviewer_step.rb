@@ -45,7 +45,6 @@ end
 
 Then("I should see a form for adding article's information") do
   expect(page).to have_selector('form')
-  find('#typefood').find(:xpath, 'option[1]').select_option
 end
 
 When("I fill article's information and click save button") do
@@ -81,21 +80,23 @@ Given("I want to update reviews food articles") do
 end
 
 When("I click button for updating article's information") do
-  # expect(page).to have_content('Edits')
+  expect(page).to have_content('Edit')
   find(:xpath, "//table/tbody/tr/td/a[contains(@href, '/revarticles/#{@article2.id}/edit')]").click
 
 end
 
 Then("I should see a form for editing article's information") do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_selector('form')
 end
 
 When("I update article's information and click save button") do
-  pending # Write code here that turns the phrase above into concrete actions
+  fill_in 'Title', with:  'New Title'
+  fill_in 'Content', with: 'New Content'
+  click_button('Update Revarticle')
 end
 
 Then("I should see a message which notify that reviews food article was updated successfully") do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(page).to have_css("#notice", :text => "Revarticle was successfully updated.")
 end
 
 # ------Delete--------------
@@ -118,3 +119,63 @@ end
 Then("I should see a approve or reject status and a comment from an admin") do
   expect(page).to have_selector('table th', text: 'Approved')
 end
+
+#------View diff versions of the articles---------
+#
+Given("I want to view different version of reviews food articles") do
+  @article2 = FactoryBot.create :article2
+end
+
+When("I click button for editing article's information") do
+  expect(page).to have_content('Edit')
+  find(:xpath, "//table/tbody/tr/td/a[contains(@href, '/revarticles/#{@article2.id}/edit')]").click
+end
+
+When("I click link edit button for viewing different Versions of articles") do\
+  click_link('Edit')
+end
+
+Then("I should see the list of previous article versions") do
+  expect(page).to have_selector('table th', text: 'Index')
+  expect(page).to have_selector('table th', text: 'Date')
+  expect(page).to have_selector('table th', text: 'Author')
+  expect(page).to have_selector('table th', text: 'Event')
+  page.has_xpath?('//table/tr')
+end
+
+When("I click link {string} for viewing the different contents from new version and old version") do |string|
+  find(:xpath, "//table/tbody/tr/td/a[contains(@href, 'Diff')]").click
+end
+
+Then("I should see the different contents from new version and old version") do
+  expect(page).to have_content('Diff between Version')
+end
+
+#
+# Given("I want to view different version of reviews food articles") do
+#   @article2 = FactoryBot.create :article2
+# end
+# When("I click link button {string} for viewing different Versions of articles") do |string|
+#   pending # Write code here that turns the phrase above into concrete actions
+# end
+# When("I click button for editing article's information") do
+#   expect(page).to have_content('Edit')
+#   find(:xpath, "//table/tbody/tr/td/a[contains(@href, '/revarticles/#{@article2.id}/edit')]").click
+#
+# end
+#
+# Then("I should see the list of previous article versions") do
+#   expect(page).to have_selector('table th', text: 'Index')
+#   expect(page).to have_selector('table th', text: 'Date')
+#   expect(page).to have_selector('table th', text: 'Author')
+#   expect(page).to have_selector('table th', text: 'Event')
+#   page.has_xpath?('//table/tr')
+# end
+#
+# When("I click link {string} for viewing the different contents from new version and old version") do |string|
+#   find(:xpath, "//table/tbody/tr/td/a[contains(@href, 'Diff')]")[0].click
+# end
+#
+# Then("I should see the different contents from new version and old version") do
+#   expect(page).to have_content('Diff between Version')
+# end

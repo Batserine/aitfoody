@@ -29,7 +29,10 @@
   <strong>Location:</strong>
   <%= @revarticle.location %>
 </p>
-
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @revarticle.img_path.url %>
+</p>
 <h2>Comments</h2>
 <table>
   <thead>

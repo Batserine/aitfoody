@@ -15,4 +15,6 @@ class Revarticle < ApplicationRecord
   def user_name
     user ? user.email : ''
   end
+
+  mount_uploader :img_path, ImageUploader
 end
