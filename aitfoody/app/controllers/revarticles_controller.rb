@@ -87,6 +87,6 @@ class RevarticlesController < ApplicationController
       # puts '----params---'
       # puts  params[:typefood]
       # params[:revarticle][:typefood] = '9'
-      params.require(:revarticle).permit(:title, :content, :rating, :price, :location,:img_path)
+      params.require(:revarticle).permit(:title, :content, :rating, :price, :location,:img_path,:remove_img_path)
     end
 end

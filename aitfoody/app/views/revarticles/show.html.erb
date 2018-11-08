@@ -31,7 +31,9 @@
 </p>
 <p>
   <strong>Image:</strong>
-  <%= image_tag @revarticle.img_path.url %>
+  <%if @revarticle.img_path.url != nil %>
+  <%= image_tag(@revarticle.img_path.url, alt: 'Image') %>
+  <% end %>
 </p>
 <h2>Comments</h2>
 <table>
