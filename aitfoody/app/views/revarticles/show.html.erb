@@ -4,7 +4,11 @@
   <strong>Title:</strong>
   <%= @revarticle.title %>
 </p>
-
+<div class="row"  >
+  <%if @revarticle.img_path.url != nil %>
+    <%= image_tag(@revarticle.img_path.url, alt: 'Image') %>
+  <% end %>
+</div>
 <p>
   <strong>Content:</strong>
   <%= @revarticle.content %>
@@ -29,12 +33,7 @@
   <strong>Location:</strong>
   <%= @revarticle.location %>
 </p>
-<p>
-  <strong>Image:</strong>
-  <%if @revarticle.img_path.url != nil %>
-  <%= image_tag(@revarticle.img_path.url, alt: 'Image') %>
-  <% end %>
-</p>
+
 <h2>Comments</h2>
 <table>
   <thead>

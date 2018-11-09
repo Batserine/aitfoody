@@ -3,38 +3,72 @@
   <%= text_field_tag :term, params[:search], placeholder: "Search Articles" %>
   <%= submit_tag "Search", class: 'btn btn-default' %>
 <% end %>
-<h1>Review Articles</h1>
-
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>Rating</th>
-      <th>Price</th>
-      <th>Food Type</th>
-      <th>Location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @revarticles.each do |revarticle| %>
-      <tr>
-        <td><%= revarticle.title %></td>
-        <td><%= revarticle.content %></td>
-        <td><%= revarticle.rating %></td>
-        <td><%= revarticle.price %></td>
-        <td><%= revarticle.typefood.name if revarticle.typefood%></td>
-        <td><%= revarticle.location %></td>
-        <td><%= link_to 'Show', revarticle %></td>
-        <td><%= link_to 'Edit', edit_revarticle_path(revarticle) %></td>
-        <td><%= link_to 'Destroy', revarticle, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<h1>Review Food Articles</h1>
 <br>
+ <% col = 3
+    arr_size = @revarticles.length
+    row =  (arr_size.to_f/col).ceil
+    puts row.ceil
+    index = 0
+    article_arr =  @revarticles.to_a
+ %>
+<% (1..row).each do |i| %>
+    <div class="row">
+      <% (1..col).each do |j| %>
+      <%  if (article_arr[index].present?)
+         some_str =  article_arr[index].try(:content)
+         img_path =  article_arr[index].try(:img_path)
+      %>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <%if img_path.thumb.url != nil %>
+              <%= image_tag(img_path.thumb.url, alt: 'Image') %>
+            <% else %>
+              <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', hight: '180px' %>
+            <% end %>
 
-<%= link_to 'New Revarticle', new_revarticle_path %>
+            <div class="card-body">
+              <h4 class="card-title"> <%= article_arr[index].try(:title) %></h4>
+              <p class="card-text">
+                <%= truncate(some_str, length: 100) %>
+                <br>Rating: <%=  article_arr[index].try(:rating) %></p>
+              <a href="/revarticles/<%= article_arr[index].try(:id)%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% index=index+1 %>
+      <% end %>
+    <%end %>
+    </div><br>
+<%end %>
+<br>
+<!--<table class="table table-bordered">-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th>Title</th>-->
+<!--      <th>Content</th>-->
+<!--      <th>Rating</th>-->
+<!--      <th>Price</th>-->
+<!--      <th>Food Type</th>-->
+<!--      <th>Location</th>-->
+<!--      <th colspan="3"></th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+
+<!--  <tbody>-->
+    <%# @revarticles.each do |revarticle| %>
+<!--      <tr>-->
+<!--        <td><%#= revarticle.title %></td>-->
+<!--        <td><%#= revarticle.content %></td>-->
+<!--        <td><%#= revarticle.rating %></td>-->
+<!--        <td><%#= revarticle.price %></td>-->
+<!--        <td><%#= revarticle.typefood.name if revarticle.typefood%></td>-->
+<!--        <td><%#= revarticle.location %></td>-->
+<!--        <td><%#= link_to 'Show', revarticle %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_revarticle_path(revarticle) %></td>-->
+<!--        <td><%#= link_to 'Destroy', revarticle, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+<!--      </tr>-->
+    <%# end %>
+<!--  </tbody>-->
+<!--</table>-->
+<%#= link_to 'New Revarticle', new_revarticle_path %>
