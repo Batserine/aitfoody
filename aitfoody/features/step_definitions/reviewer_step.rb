@@ -121,7 +121,7 @@ Then("I should see a approve or reject status and a comment from an admin") do
 end
 
 #------View diff versions of the articles---------
-#
+
 Given("I want to view different version of reviews food articles") do
   @article2 = FactoryBot.create :article2
 end
@@ -144,38 +144,24 @@ Then("I should see the list of previous article versions") do
 end
 
 When("I click link {string} for viewing the different contents from new version and old version") do |string|
-  find(:xpath, "//table/tbody/tr/td/a[contains(@href, 'Diff')]").click
+  # expect(page).to have_content('Edit2')
+  find(:xpath, "//table/tbody/tr/td/a[contains(@href, 'diff')]").click
 end
 
 Then("I should see the different contents from new version and old version") do
   expect(page).to have_content('Diff between Version')
 end
 
-#
-# Given("I want to view different version of reviews food articles") do
-#   @article2 = FactoryBot.create :article2
-# end
-# When("I click link button {string} for viewing different Versions of articles") do |string|
-#   pending # Write code here that turns the phrase above into concrete actions
-# end
-# When("I click button for editing article's information") do
-#   expect(page).to have_content('Edit')
-#   find(:xpath, "//table/tbody/tr/td/a[contains(@href, '/revarticles/#{@article2.id}/edit')]").click
-#
-# end
-#
-# Then("I should see the list of previous article versions") do
-#   expect(page).to have_selector('table th', text: 'Index')
-#   expect(page).to have_selector('table th', text: 'Date')
-#   expect(page).to have_selector('table th', text: 'Author')
-#   expect(page).to have_selector('table th', text: 'Event')
-#   page.has_xpath?('//table/tr')
-# end
-#
-# When("I click link {string} for viewing the different contents from new version and old version") do |string|
-#   find(:xpath, "//table/tbody/tr/td/a[contains(@href, 'Diff')]")[0].click
-# end
-#
-# Then("I should see the different contents from new version and old version") do
-#   expect(page).to have_content('Diff between Version')
-# end
+#------Roll back versions of the articles---------
+Given("I want to rollback version of reviews food articles") do
+  @article2 = FactoryBot.create :article2
+end
+
+When("I click link {string} to roll back version of the article") do |string|
+  # expect(page).to have_content('Diff between Version')
+  find(:xpath, "//table/tbody/tr/td/a[contains(@href, 'rollback')]").click
+end
+
+Then("I should see a message which notify that reviews food article was roll back version successfully") do
+  expect(page).to have_selector('form')
+end
