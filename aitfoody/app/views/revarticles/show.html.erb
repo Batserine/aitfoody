@@ -1,5 +1,5 @@
 <p id="notice"><%= notice %></p>
-
+<center>
 <p>
   <strong>Title:</strong>
   <%= @revarticle.title %>
@@ -34,6 +34,8 @@
   <%= @revarticle.location %>
 </p>
 
+<br>
+<br>
 <h2>Comments</h2>
 <table>
   <thead>
@@ -49,6 +51,7 @@
   <% end %>
   </tbody>
 </table>
+
 <br/>
 
 <h2>Add a comment:</h2>
@@ -65,3 +68,5 @@
 <% end %>
 <%= link_to 'Edit', edit_revarticle_path(@revarticle) %> |
 <%= link_to 'Back', revarticles_path %>
+
+</center>
