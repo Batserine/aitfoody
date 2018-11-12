@@ -1,0 +1,15 @@
+pipeline {
+	agent {	dockerfile {
+		filename 'Dockerfile.test'
+	} }
+	stages {
+	stage ('build') {
+		steps {
+		 sh ...
+		 cd /home/balu/balu/web18-08/assignment1/
+		 bundle install
+		 ...
+		 }
+ 		}
+	   }
+ }
