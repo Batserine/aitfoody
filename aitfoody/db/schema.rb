@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_03_125152) do
+ActiveRecord::Schema.define(version: 2018_11_29_170433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(version: 2018_11_03_125152) do
     t.text "content"
     t.integer "rating"
     t.integer "price"
-    t.string "keywords"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -43,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_11_03_125152) do
     t.string "img_path"
     t.boolean "approved", default: false
     t.string "message"
+    t.string "ingredient"
     t.index ["typefood_id"], name: "index_revarticles_on_typefood_id"
     t.index ["user_id"], name: "index_revarticles_on_user_id"
   end
@@ -89,8 +89,7 @@ ActiveRecord::Schema.define(version: 2018_11_03_125152) do
     t.string "firstname"
     t.string "lastname"
     t.string "sex"
-    t.string "ban_status"
-    t.boolean "active_status", default: true
+    t.boolean "active_status", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"

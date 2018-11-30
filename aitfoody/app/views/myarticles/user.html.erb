@@ -1,0 +1,40 @@
+<h1>Review Food Articles</h1>
+<h4>by <%= @user.firstname %> <%= @user.lastname %></h4>
+
+<br>
+<% col = 3
+   arr_size = @revarticles.length
+   row =  (arr_size.to_f/col).ceil
+   puts row.ceil
+   index = 0
+   article_arr =  @revarticles.to_a
+%>
+<% (1..row).each do |i| %>
+  <div class="row">
+    <% (1..col).each do |j| %>
+      <%  if (article_arr[index].present?)
+            some_str =  article_arr[index].try(:content)
+            img_path =  article_arr[index].try(:img_path)
+      %>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <%if img_path.thumb.url != nil %>
+              <%= image_tag(img_path.thumb.url, alt: 'Image') %>
+            <% else %>
+              <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', hight: '180px' %>
+            <% end %>
+
+            <div class="card-body">
+              <h4 class="card-title"> <%= article_arr[index].try(:title) %></h4>
+              <p class="card-text">
+                <%= truncate(some_str, length: 100) %>
+                <br>Rating: <%=  article_arr[index].try(:rating) %></p>
+              <a href="/revarticles/<%= article_arr[index].try(:id)%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% index=index+1 %>
+      <% end %>
+    <%end %>
+  </div><br>
+<%end %>

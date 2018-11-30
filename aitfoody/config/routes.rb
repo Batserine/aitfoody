@@ -21,9 +21,9 @@ Rails.application.routes.draw do
       end
     end
   end
-  root "revarticles#index"
-  get  "myarticles"   => "myarticles#index", :as => :myRevarticles
-
+  root "revarticles#index" , :as => :homepage
+  get  "articles"   => "myarticles#index", :as => :myRevarticles
+  get  "articles/user/:user_id"   => "myarticles#user", :as => :userRevarticles
   post "revarticles/:id"   => "comments#create"  , :as => :addComments
   post "api/ban_user"      => "api#ban_user"     , :as => :banUser
   post "api/create_chart_sex"       => "api#create_chart_sex" , :as => :createChartSex

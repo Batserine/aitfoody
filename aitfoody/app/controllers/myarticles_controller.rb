@@ -5,4 +5,10 @@ class MyarticlesController < ApplicationController
       # @revarticles = Revarticle.all
       render :index
   end
+  # GET /revarticles/user/:id
+  def user
+    @user        = User.find(params[:user_id])
+    @revarticles =  Revarticle.where(user_id: params[:user_id]).where("approved = ?" , true)
+    render :user
+  end
 end
