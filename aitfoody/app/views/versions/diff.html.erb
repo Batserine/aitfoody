@@ -1,9 +1,10 @@
 <div class='row mt'>
   <div class='col-sm-12'>
-    <h2><%= "Diff between Version #{@version.id} and Current Version" %></h2>
+  
+  <center>  <h2><%= "Diff between Version #{@version.id} and Current Version" %></h2></center>
     <style><%= Diffy::CSS %></style>
     <div class='well diff'>
-      <p>
+     <center> <p>
         <strong>Ttile:</strong>
         <%= diff(@version.reify.title, @revarticle.title) %>
       </p>
@@ -23,6 +24,7 @@
         <strong>Location:</strong>
         <%= diff(@version.reify.location, @revarticle.location) %>
       </p>
+      
       <p>
         <strong>Approve Status:</strong>
         <%= diff(@version.reify.approved, @revarticle.approved) %>
@@ -32,11 +34,14 @@
         <%= diff(@version.reify.message, @revarticle.message) %>
       </p>
     </div>
+    <br>
     <p>
       <%= "Version authored by #{find_version_author_name(@version)} on #{@version.created_at} by '#{@version.event.humanize}'." %>
     </p>
   </div>
 </div>
+<br>
+
 <div class='fr'>
   <%= link_to 'Back', edit_revarticle_path(@revarticle), class: 'btn btn-danger' %>
   <%= link_to 'Rollback', rollback_revarticle_version_path(@revarticle, @version), class: 'btn btn-primary', method: 'PATCH' %>
