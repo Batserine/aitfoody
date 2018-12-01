@@ -40,9 +40,9 @@
     <%= @revarticle.location %>
   </p>
   <div align="right">
-    <p> posted by:
+    <p> updated on <%= @revarticle.updated_at.to_time.strftime("%A, %d %b %Y ") %> posted by:
       <a href="/articles/user/<%= @revarticle.user_id %>"><%= posted_name %></a>
-      updated on: <%= @revarticle.updated_at.to_time.strftime("%A, %d %b %Y ") %>
+
     </p>
   </div>
 <% if !@comments.empty?

@@ -30,6 +30,9 @@ Rails.application.routes.draw do
   post "api/create_chart_sex"       => "api#create_chart_sex" , :as => :createChartSex
   post "api/create_chart_createdAt"  => "api#create_chart_createdAt" , :as => :createChartCreatedAt
   get  "backend/statistics" => "backend#show_statistics",  :as => :statistics
+  get  "profile"   => "users#edit", :as => :myProfile
+  post "update_profile"   => "users#update_profile", :as => :updateProfile
+  # post "update_password"   => "users#update_password", :as => :updateProfile
   get  "search"   => "api#search"  , :as => :search
   #[not use] get  "backend/users" => "backend#show_user",  :as => :manageUser
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
