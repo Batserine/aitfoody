@@ -2,7 +2,6 @@
   <% if revarticle.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(revarticle.errors.count, "error") %> prohibited this revarticle from being saved:</h2>
-
       <ul>
       <% revarticle.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,51 +9,112 @@
       </ul>
     </div>
   <% end %>
-<center>
-  <div class="field">
+  <div class="form-group">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title ,:class => 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content %>
-  </div>
-
-  <div class="field">
-    <%= form.label :rating %>
-    <%= form.number_field :rating %>
-  </div>
-
-  <div class="field">
-    <%= form.label :price %>
-    <%= form.number_field :price %>
-  </div>
-
 <!--  <div class="field">-->
-    <%#= form.label :keywords %>
-    <%#= form.text_field :keywords %>
+    <%#= form.label :content %>
+    <%#= form.text_area :content %>
 <!--  </div>-->
- <div class="field">
-   Type of Food
-   <%= select_tag "typefood", options_for_select(@typefood.collect{ |f| [f.name, f.id]}, :selected=> revarticle.typefood_id), {:class =>"select_combobox", prompt: " --- Select ---" }%>
- </div>
-  <div class="field">
-    <%= form.label :location %>
-    <%= form.text_field :location %>
+
+  <div class="form-group">
+    <%= form.label :img_path %>
+    <%= form.file_field :img_path, :class => "form-control-file" %>
   </div>
-  <div class="field">
-    <%= form.label :img_path %><br>
-    <%= form.file_field :img_path %>
     <% if form.object.img_path? %>
-      <%= image_tag form.object.img_path.url %>
-      <%= form.label :remove_img_path %>
-      <%= form.check_box :remove_img_path %>
+    <div class="form-group">
+    <%= image_tag form.object.img_path.url ,width: 300 %>
+    </div>
+    <div class="form-check">
+      <%= form.check_box :remove_img_path , :class => "form-check-input" %>
+      <%= form.label :remove_img_path , :class => "form-check-label" %>
+    </div><br>
     <% end %>
+
+
+  <div class="form-group">
+    <%= form.label :content %>
+    <%= form.cktext_area :content, rows: 10, ckeditor: {toolbar: 'mini'} %>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :rating %>
+        <%= form.number_field :rating ,:class => 'form-control', :min=>"1", :max=>"5", :step=>"1" ,:onkeypress => "return isNumber(event)" %>
+        <small id="ratingHelp" class="form-text text-muted">rating. 1-5</small>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label :price %>
+        <%= form.number_field :price ,:class => 'form-control', :min=>"1",:onkeypress => "return isNumber(event)" %>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label 'Important Ingredients' %>
+        <%= form.text_field :ingredient ,:class => 'form-control', :placeholder => "eg. chicken, egg" %>
+      </div>
+    </div>
+  </div>
+<!--  <div class="field">-->
+    <%#= form.label 'Important Ingredients' %>
+    <%#= form.text_field :ingredient %>
+<!--  </div>-->
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <%= form.label 'Type of Food' %>
+        <%= select_tag "typefood", options_for_select(@typefood.collect{ |f| [f.name, f.id]},
+                                                      :selected=> revarticle.typefood_id), {:class =>"form-control", prompt: " --- Select ---" }%>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="form-group">
+        <%= form.label :location %>
+        <%= form.text_field :location ,:class => 'form-control' %>
+      </div>
+    </div>
   </div>
   <br>
+<<<<<<< HEAD
   <div class="actions">
     <%= form.submit %>
+=======
+  <div class="actions text-center">
+    <%= form.submit 'Update Article', class: 'btn btn-success' %>
+>>>>>>> 740b967a3e42202565ddf53272e5d6afe8911be6
   </div>
-  </center>
+
+
+<!-- <div class="field">-->
+<!--   Type of Food-->
+   <%#= select_tag "typefood", options_for_select(@typefood.collect{ |f| [f.name, f.id]}, :selected=> revarticle.typefood_id), {:class =>"select_combobox", prompt: " --- Select ---" }%>
+<!-- </div>-->
+<!--  <div class="field">-->
+    <%#= form.label :location %>
+    <%#= form.text_field :location %>
+<!--  </div>-->
+<!--  <div class="field">-->
+<!--    <%#= form.label :img_path %><br>-->
+    <%#= form.file_field :img_path %>
+    <%# if form.object.img_path? %>
+      <%#= image_tag form.object.img_path.url %>
+      <%#= form.label :remove_img_path %>
+      <%#= form.check_box :remove_img_path %>
+    <%# end %>
+<!--  </div>-->
+
+
 <% end %>
+<script type="text/javascript">
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if ( (charCode > 31 && charCode < 48) || charCode > 57) {
+            return false;
+        }
+        return true;
+    }
+</script>

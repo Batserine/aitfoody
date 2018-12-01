@@ -1,0 +1,47 @@
+<!--<h1>Type Food : <%#= @title %> </h1>-->
+<br><br>
+<div class="jumbotron p-2 p-md-4 text-black rounded bg-grey">
+  <div class="col-md-8 px-0">
+    <h5 class="display-4 font-italic"> <%= @title %></h5>
+    <p class="lead my-3">Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.</p>
+  </div>
+</div>
+<% col = 3
+   arr_size =0
+      if !@revarticles.nil?
+         arr_size = @revarticles.length
+         row =  (arr_size.to_f/col).ceil
+         puts row.ceil
+         index = 0
+         article_arr =  @revarticles.to_a
+      end
+%>
+<% (1..row).each do |i| %>
+  <div class="row">
+    <% (1..col).each do |j| %>
+      <%  if (article_arr[index].present?)
+            some_str =  article_arr[index].try(:content)
+            img_path =  article_arr[index].try(:img_path)
+      %>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <%if img_path.thumb.url != nil %>
+              <%= image_tag(img_path.thumb.url, alt: 'Image') %>
+            <% else %>
+              <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', hight: '180px' %>
+            <% end %>
+
+            <div class="card-body">
+              <h4 class="card-title"> <%= article_arr[index].try(:title) %></h4>
+              <p class="card-text">
+                <%= truncate(some_str, length: 70, :escape => false) %>
+                <br>Rating: <%=  article_arr[index].try(:rating) %></p>
+              <a href="/revarticles/<%= article_arr[index].try(:id)%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% index=index+1 %>
+      <% end %>
+    <%end %>
+  </div><br>
+<%end %>

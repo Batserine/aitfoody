@@ -6,14 +6,30 @@ class RevarticlesController < ApplicationController
   # GET /revarticles
   # GET /revarticles.json
   def index
-    # @revarticles = Revarticle.all
     # show approved articles only
-    @revarticles = Revarticle.where("approved = ?" , true)
+    # @revarticles = Revarticle.where("approved = ?" , true)
+    @revarticles = (params[:term].blank?) ? Revarticle.where("approved = ?" , true) : Revarticle.where(id: params[:term].split(",")).where("approved = ?" , true)
+
+    respond_to do |format|
+      format.html do
+        render 'revarticles/index'
+      end
+      format.json {
+        render json: Revarticle.where('title ILIKE :search OR content ILIKE :search',search: "%#{params[:term]}%" ).where('approved = ?', true).select('id,title as name')
+      }
+    end
   end
 
   # GET /revarticles/1
   # GET /revarticles/1.json
   def show
+    sql = "SELECT  firstname,lastname,email,comment, comments.updated_at,comments.id FROM comments
+                 INNER JOIN review_comments ON review_comments.comment_id = comments.id
+                 INNER JOIN revarticles ON revarticles.id = review_comments.revarticle_id
+                 INNER JOIN users ON users.id = comments.user_id WHERE review_comments.revarticle_id = "+params[:id]
+    @comments = ActiveRecord::Base.connection.exec_query(sql).to_hash
+    puts @comments
+    # @comments = Comment.joins(:revarticles).where(review_comments: {revarticle_id: 7}).joins(:user).includes(:user).select('title,content,rating,price,ingredient,location,firstname,comment')
   end
 
   # GET /revarticles/new
@@ -87,6 +103,6 @@ class RevarticlesController < ApplicationController
       # puts '----params---'
       # puts  params[:typefood]
       # params[:revarticle][:typefood] = '9'
-      params.require(:revarticle).permit(:title, :content, :rating, :price, :location,:img_path,:remove_img_path)
+      params.require(:revarticle).permit(:title, :content, :rating, :price, :ingredient, :location,:img_path,:remove_img_path)
     end
 end

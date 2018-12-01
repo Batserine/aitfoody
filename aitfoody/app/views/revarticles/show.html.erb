@@ -1,72 +1,105 @@
 <p id="notice"><%= notice %></p>
-<center>
-<p>
-  <strong>Title:</strong>
-  <%= @revarticle.title %>
-</p>
-<div class="row"  >
-  <%if @revarticle.img_path.url != nil %>
-    <%= image_tag(@revarticle.img_path.url, alt: 'Image') %>
-  <% end %>
-</div>
-<p>
-  <strong>Content:</strong>
-  <%= @revarticle.content %>
-</p>
+<%
+  posted_name = ''
+  if @revarticle.user.firstname.nil?
+    posted_name = @revarticle.user.email
+  else
+    posted_name = @revarticle.user.firstname+' '+@revarticle.user.lastname
+  end
+%>
+<div class="container">
+  <br>
+  <h3 class="text-center"> <%= @revarticle.title %> </h3>
+   <!--Image-->
+    <%if @revarticle.img_path.url != nil %>
+      <div align="center"><%= image_tag(@revarticle.img_path.url, alt: 'Image',height:  350) %></div>
+    <% end %>
+  <br>
+  <!--Content-->
+  <p>
+    <%= raw(@revarticle.content) %>
+  </p>
+  <p>
+    <strong>Rating:</strong>
+    <%= @revarticle.rating %>
+  </p>
+  <p>
+    <strong>Price:</strong>
+    <%= @revarticle.price %>
+  </p>
+  <p>
+    <strong>Important Ingredients:</strong>
+    <%= @revarticle.ingredient %>
+  </p>
+  <p>
+    <strong>Food Type:</strong>
+    <%= @revarticle.typefood.name if @revarticle.typefood %>
+  </p>
+  <p>
+    <strong>Location:</strong>
+    <%= @revarticle.location %>
+  </p>
+  <div align="right">
+    <p> updated on <%= @revarticle.updated_at.to_time.strftime("%A, %d %b %Y ") %> posted by:
+      <a href="/articles/user/<%= @revarticle.user_id %>"><%= posted_name %></a>
 
-<p>
-  <strong>Rating:</strong>
-  <%= @revarticle.rating %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @revarticle.price %>
-</p>
-
-<p>
-  <strong>Food Type:</strong>
-  <%= @revarticle.typefood.name if @revarticle.typefood %>
-</p>
-
-<p>
-  <strong>Location:</strong>
-  <%= @revarticle.location %>
-</p>
-
-<br>
-<br>
-<h2>Comments</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Comment</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% @revarticle.comments.each do |comment_item| %>
-    <tr>
-      <td><%= comment_item.comment %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<br/>
-
-<h2>Add a comment:</h2>
-<%= form_for([@revarticle, @revarticle.comments.build]) do |f|%>
-  <div class="field">
-    <%= f.label :comment %>
-    <br/>
-    <%= f.text_field :comment %>
+    </p>
   </div>
+<% if !@comments.empty?
+   comment_size = @comments.length
+   comment_str = 'Comments'
+   if comment_size == 1
+     comment_str = 'Comment'
+   end
+%>
+<h4> <%= comment_size %> <%= comment_str%></h4>
+  <%# @revarticle.comments.each do |comment_item| %>
+<!--    <tr>-->
+<!--      <td><%#= comment_item.comment %>  &nbsp;&nbsp; <%#= comment_item.user_id %></td>-->
+<!--    </tr>-->
+  <%# end %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <% @comments.each do |key|
+      if key['firstname'].nil?
+       name = key['email']
+      else
+       name = key['firstname']+ ' '+ key['lastname']
+      end
+  %>
+      <p><%= key['comment'] %></p>
+      <div align="right">
+      <small> commented on  <%= key['updated_at'].to_time.strftime("%A, %d %b %Y %l:%M %p") %>
+              by <%= name %>
+        </small>
+      </div>
+      <hr>
+  <% end %>
+<!
 <% end %>
-<%= link_to 'Edit', edit_revarticle_path(@revarticle) %> |
-<%= link_to 'Back', revarticles_path %>
-
-</center>
+<br/>
+<% if user_signed_in? %>
+  <h4>Add a comment:</h4>
+  <%= form_for([@revarticle, @revarticle.comments.build]) do |f|%>
+      <div class="form-group">
+      <%= f.label 'Your Comment' %>
+      <br/>
+      <%= f.text_area :comment,:class => 'form-control'  %>
+    </div>
+    <div class="actions">
+      <%= f.submit 'Post Your Comment', class: 'btn btn-success' %>
+    </div>
+  <% end %>
+<% end %>
+<br>
+<% if user_signed_in?
+     role_user = current_user.role.name if current_user.role
+     if role_user == "Admin" %>
+       <%= link_to 'Edit', edit_revarticle_path(@revarticle) %> |
+    <% elsif current_user.id == @revarticle.user_id %>
+       <%= link_to 'Edit', edit_revarticle_path(@revarticle) %> |
+    <% end %>
+<% end %>
+  <%= link_to 'Back', homepage_path%>
+<!--  , :class => "btn btn-info"-->
+  <br><br>
+</div>

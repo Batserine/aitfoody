@@ -23,7 +23,7 @@
     <tr>
       <td><%= revarticle.id %></td>
       <td><%= revarticle.title %></td>
-      <td><%= revarticle.content %></td>
+      <td><%= truncate(revarticle.content, length: 100, :escape => true) %>...</td>
       <td><%= revarticle.rating %></td>
       <td><%= revarticle.price %></td>
       <td><%= revarticle.typefood.name if revarticle.typefood%></td>

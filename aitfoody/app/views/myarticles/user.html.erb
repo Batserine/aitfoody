@@ -1,0 +1,54 @@
+<br><br>
+<div>
+  <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+    <img class="card-img-left flex-auto d-none d-lg-block" data-src="holder.js/200x250?theme=thumb"
+         alt="Thumbnail [200x250]" src="/images/avatar_<%= @user.sex %>.png" data-holder-rendered="true" style="height: 200px;">
+    <div class="card-body d-flex flex-column align-items-start">
+      <h3 class="mb-0">
+        <a class="text-dark" href="#">AIT Foody Reviewer</a>
+      </h3>
+      &nbsp;
+      <p class="card-text mb-auto"><strong>Name:</strong> <%= @user.firstname %> <%= @user.lastname %></p>
+      <p class="card-text mb-auto"><strong>E-mail:</strong> <%= @user.email %></p>
+      <p class="card-text mb-auto"><strong>Registered at:</strong> <%= @user.created_at %></p>
+      <p class="card-text mb-auto"><strong>Number of Articles:</strong> <%= @revarticles.length %></p>
+    </div>
+
+  </div>
+</div>
+<% col = 3
+   arr_size = @revarticles.length
+   row =  (arr_size.to_f/col).ceil
+   puts row.ceil
+   index = 0
+   article_arr =  @revarticles.to_a
+%>
+<% (1..row).each do |i| %>
+  <div class="row">
+    <% (1..col).each do |j| %>
+      <%  if (article_arr[index].present?)
+            some_str =  article_arr[index].try(:content)
+            img_path =  article_arr[index].try(:img_path)
+      %>
+        <div class="col-sm-4">
+          <div class="card" style="width: 18rem;">
+            <%if img_path.thumb.url != nil %>
+              <%= image_tag(img_path.thumb.url, alt: 'Image') %>
+            <% else %>
+              <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', hight: '180px' %>
+            <% end %>
+
+            <div class="card-body">
+              <h4 class="card-title"> <%= article_arr[index].try(:title) %></h4>
+              <p class="card-text">
+                <%= truncate(some_str, length: 70, :escape => false) %>
+                <br>Rating: <%=  article_arr[index].try(:rating) %></p>
+              <a href="/revarticles/<%= article_arr[index].try(:id)%>" class="btn btn-primary">View</a>
+            </div>
+          </div>
+        </div>
+        <% index=index+1 %>
+      <% end %>
+    <%end %>
+  </div><br>
+<%end %>

@@ -10,11 +10,14 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 
+//= require jquery3
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 
-//= require jquery3
+
+
+//= require jquery.tokeninput
 //= require popper
 //= require bootstrap
 
@@ -22,5 +25,5 @@
 // to get the new features in 2.3.0:
 //= require highcharts/highcharts-more
 //= require chartkick
-
+//= require ckeditor/init
 //= require_tree .
