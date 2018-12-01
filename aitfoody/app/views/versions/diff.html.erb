@@ -1,10 +1,12 @@
+<div class="container">
+  <br><br>
 <div class='row mt'>
   <div class='col-sm-12'>
-  
-  <center>  <h2><%= "Diff between Version #{@version.id} and Current Version" %></h2></center>
+
+  <center>  <h3><%= "Diff between Version #{@version.id} and Current Version" %></h3></center>
     <style><%= Diffy::CSS %></style>
     <div class='well diff'>
-     <center> <p>
+     <p>
         <strong>Ttile:</strong>
         <%= diff(@version.reify.title, @revarticle.title) %>
       </p>
@@ -42,7 +44,9 @@
 </div>
 <br>
 
-<div class='fr'>
-  <%= link_to 'Back', edit_revarticle_path(@revarticle), class: 'btn btn-danger' %>
+<center>
+  <%= link_to 'Back', edit_revarticle_path(@revarticle), class: 'btn btn-danger' %>&nbsp;
   <%= link_to 'Rollback', rollback_revarticle_version_path(@revarticle, @version), class: 'btn btn-primary', method: 'PATCH' %>
+</center>
+  <br><br>
 </div>

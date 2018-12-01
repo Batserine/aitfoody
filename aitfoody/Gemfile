@@ -33,6 +33,8 @@ gem 'diffy'
 #upload image
 gem 'carrierwave', '~> 1.0'
 gem 'mini_magick', '~> 4.3'
+#WYSIWYG editor
+gem 'ckeditor', github: 'galetahub/ckeditor'
 #jquery
 gem 'jquery-rails'
 gem 'jquery-tokeninput-rails'

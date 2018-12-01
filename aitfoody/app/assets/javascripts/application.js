@@ -25,5 +25,5 @@
 // to get the new features in 2.3.0:
 //= require highcharts/highcharts-more
 //= require chartkick
-
+//= require ckeditor/init
 //= require_tree .

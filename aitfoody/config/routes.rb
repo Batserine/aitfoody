@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   root "revarticles#index" , :as => :homepage
   get  "articles"   => "myarticles#index", :as => :myRevarticles
   get  "articles/user/:user_id"   => "myarticles#user", :as => :userRevarticles
+  get  "articles/type/:food"   => "myarticles#typefood", :as => :typeRevarticles
   post "revarticles/:id"   => "comments#create"  , :as => :addComments
   post "api/ban_user"      => "api#ban_user"     , :as => :banUser
   post "api/create_chart_sex"       => "api#create_chart_sex" , :as => :createChartSex
