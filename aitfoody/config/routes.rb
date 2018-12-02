@@ -12,8 +12,7 @@ Rails.application.routes.draw do
     resources :comments
   end
   resources :revarticles do
-    resources :ingredients
-  end
+    end
   resources :revarticles do
     resources :versions, only: [:destroy] do
       member do
@@ -22,7 +21,7 @@ Rails.application.routes.draw do
       end
     end
   end
-  root "revarticles#index" , :as => :homepage
+  root "revarticles#index" , :as => :root
   get  "articles"   => "myarticles#index", :as => :myRevarticles
   get  "articles/user/:user_id"   => "myarticles#user", :as => :userRevarticles
   get  "articles/type/:food"   => "myarticles#typefood", :as => :typeRevarticles
