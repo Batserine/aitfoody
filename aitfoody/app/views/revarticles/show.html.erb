@@ -14,10 +14,18 @@
   else
     posted_name = @revarticle.user.firstname+' '+@revarticle.user.lastname
   end
+  avg_rating_str = ''
+  avg_rating = @user_rating[0]["avg_rating"].to_f
+  if avg_rating != 0
+    # avg_rating.round(2).to_s[0..2].to_f
+    avg_rating = avg_rating.round(2)
+    avg_rating_str = 'Avg Rating: '+avg_rating.to_s
+  end
 %>
 <div class="container">
   <br>
   <h3 class="text-center"> <%= @revarticle.title %> </h3>
+  <p class="text-center"> <%= avg_rating_str %></p>
    <!--Image-->
     <%if @revarticle.img_path.url != nil %>
       <div align="center"><%= image_tag(@revarticle.img_path.url, alt: 'Image',height:  350) %></div>
@@ -61,11 +69,6 @@
    end
 %>
 <h4> <%= comment_size %> <%= comment_str%></h4>
-  <%# @revarticle.comments.each do |comment_item| %>
-<!--    <tr>-->
-<!--      <td><%#= comment_item.comment %>  &nbsp;&nbsp; <%#= comment_item.user_id %></td>-->
-<!--    </tr>-->
-  <%# end %>
 
   <% @comments.each do |key|
       if key['firstname'].nil?
@@ -73,8 +76,13 @@
       else
        name = key['firstname']+ ' '+ key['lastname']
       end
+      rating_str = ''
+      if !key['rating'].nil?
+       rating = key['rating'].to_s
+       rating_str = '('+rating +' stars )'
+      end
   %>
-      <p><%= key['comment'] %></p>
+      <p><%= key['comment'] %> <%= rating_str %></p>
       <div align="right">
       <small> commented on  <%= key['updated_at'].to_time.strftime("%A, %d %b %Y %l:%M %p") %>
               by <%= name %>
@@ -92,6 +100,7 @@
       <%= f.label 'Your Comment' %>
       <br/>
       <%= f.text_area :comment,:class => 'form-control'  %>
+        <p class="error_comment"></p>
     </div>
       <%= f.hidden_field :rating, :id => "hiddenRating"%>
       <p>
@@ -103,7 +112,7 @@
       <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
       </p>
       <div class="actions">
-      <%= f.submit 'Post Your Comment', class: 'btn btn-success' %>
+      <%= f.submit 'Post Your Comment', :onclick => "return validateform();", class: 'btn btn-success' %>
     </div>
   <% end %>
 <% end %>
@@ -136,5 +145,12 @@
         }
         $('#hiddenRating').val(sno);
         // document.getElementById("hiddenRating").value = sno;
+    }
+    function validateform(){
+        if(document.getElementById("comment_comment").value == ''){
+            message = "Comment should not be blank";
+            $('p.error_comment').html(message);
+           return false;
+        }
     }
 </script>

@@ -23,11 +23,16 @@ class RevarticlesController < ApplicationController
   # GET /revarticles/1
   # GET /revarticles/1.json
   def show
-    sql = "SELECT  firstname,lastname,email,comment, comments.updated_at,comments.id FROM comments
+    sql = "SELECT  firstname,lastname,email,comment,comments.rating, comments.updated_at,comments.id FROM comments
                  INNER JOIN review_comments ON review_comments.comment_id = comments.id
                  INNER JOIN revarticles ON revarticles.id = review_comments.revarticle_id
                  INNER JOIN users ON users.id = comments.user_id WHERE review_comments.revarticle_id = "+params[:id]
-    @comments = ActiveRecord::Base.connection.exec_query(sql).to_hash
+    avg_sql = "SELECT  avg(comments.rating) as avg_rating FROM comments
+                 INNER JOIN review_comments ON review_comments.comment_id = comments.id
+                 INNER JOIN revarticles ON revarticles.id = review_comments.revarticle_id
+                 INNER JOIN users ON users.id = comments.user_id WHERE review_comments.revarticle_id = "+params[:id]
+    @comments   = ActiveRecord::Base.connection.exec_query(sql).to_hash
+    @user_rating = ActiveRecord::Base.connection.exec_query(avg_sql).to_hash
     puts @comments
     # @comments = Comment.joins(:revarticles).where(review_comments: {revarticle_id: 7}).joins(:user).includes(:user).select('title,content,rating,price,ingredient,location,firstname,comment')
   end

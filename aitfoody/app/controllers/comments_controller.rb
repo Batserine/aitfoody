@@ -35,11 +35,10 @@ class CommentsController < ApplicationController
       respond_to do |format|
         puts '---comment_params---'
         if @revarticle.comments.create(comment_params.merge(user_id: current_user.id))
-        # if @comment.save
           format.html { redirect_to @revarticle, notice: 'Comment was successfully created.' }
           format.json { render :show, status: :created, location: @revarticle }
         else
-          format.html { render :new }
+          format.html { render :new , notice: 'Comment cannot create.'}
           format.json { render json: @revarticle.errors, status: :unprocessable_entity }
         end
       end
