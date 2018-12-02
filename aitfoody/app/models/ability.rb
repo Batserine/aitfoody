@@ -27,10 +27,6 @@ class Ability
     elsif user.ori_user?
         can :read, Revarticle
         can :read, Comment
-        can :create, Comment
-        # can :destroy, Comment
-        # can :destroy, Comment do |revarticle|
-        #   revarticle.try(:user) == user
         # end
     else
       can :read, Revarticle

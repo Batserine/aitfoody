@@ -35,29 +35,14 @@ class CommentsController < ApplicationController
       respond_to do |format|
         puts '---comment_params---'
         if @revarticle.comments.create(comment_params.merge(user_id: current_user.id))
-        # if @comment.save
           format.html { redirect_to @revarticle, notice: 'Comment was successfully created.' }
           format.json { render :show, status: :created, location: @revarticle }
         else
-          format.html { render :new }
+          format.html { render :new , notice: 'Comment cannot create.'}
           format.json { render json: @revarticle.errors, status: :unprocessable_entity }
         end
       end
     end
-
-  # def create
-  #   @comment = Comment.new(comment_params)
-  #   @comment.user = current_user
-  #   respond_to do |format|
-  #     if @comment.save
-  #       format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-  #       format.json { render :show, status: :created, location: @comment }
-  #     else
-  #       format.html { render :new }
-  #       format.json { render json: @comment.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
@@ -96,6 +81,6 @@ class CommentsController < ApplicationController
     def comment_params
       # params[:comment][:user_id] = 1
       # params.require(:comment).permit(:comment,:user_id)
-      params.require(:comment).permit(:comment)
+      params.require(:comment).permit(:comment,:rating)
     end
 end

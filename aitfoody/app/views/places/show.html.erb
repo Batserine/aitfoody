@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <br>
+  <h3 class="text-center"> <%= @place.title %> </h3>
+  <!--Image-->
+  <%if @place.img_path.url != nil %>
+    <div align="center"><%= image_tag(@place.img_path.url, alt: 'Image',height:  350) %></div>
+  <% end %>
+  <br>
+  <!--Content-->
+  <p>
+    <%= raw(@place.content) %>
+  </p>
+
+  <div align="right">
+    <p> updated on <%= @place.updated_at.to_time.strftime("%A, %d %b %Y ") %></p>
+  </div>
+  <% if user_signed_in?
+       role_user = current_user.role.name if current_user.role
+       if role_user == "Admin" %>
+         <%= link_to 'Edit', edit_place_path(@place) %> |
+       <% end %>
+  <% end %>
+<%= link_to 'Back', places_path %>
+</div>

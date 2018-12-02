@@ -1,0 +1,87 @@
+<div class="container">
+<p id="notice"><%= notice %></p>
+<br><br>
+<div class="jumbotron p-2 p-md-4 text-black rounded bg-grey">
+  <div class="col-md-8 px-0">
+    <h2 class="font-italic"> Place Information</h2>
+    <p class="lead my-3">eg. Canteen, Supermarket, Bazaar, Restaurant.</p>
+  </div>
+</div>
+<% col = 3
+   arr_size =0
+   if !@places.nil?
+     arr_size = @places.length
+     row =  (arr_size.to_f/col).ceil
+     puts row.ceil
+     index = 0
+     article_arr =  @places.to_a
+   end
+%>
+<% (1..row).each do |i| %>
+  <div class="row">
+    <% (1..col).each do |j| %>
+      <%  if (article_arr[index].present?)
+            link_place  =  '/places/'+ article_arr[index].try(:id).to_s
+            title    =  article_arr[index].try(:title)
+            img_path =  article_arr[index].try(:img_path)
+      %>
+        <div class="col-sm-4">
+
+          <div class="card" style="width: 18rem;">
+            <div class="card-header">
+              <%= title %>
+            </div>
+
+              <%if img_path.thumb.url != nil %>
+                <%= link_to(link_place) do %>
+                  <%= image_tag(img_path.thumb.url, alt: 'Image',hight: '180px' ) %>
+                  <% end %>
+              <% else %>
+                  <%= link_to(@place) do %>
+                    <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', hight: '180px' %>
+                  <% end %>
+              <% end %>
+
+          </div>
+        </div>
+        <% index=index+1 %>
+      <% end %>
+    <%end %>
+  </div><br>
+<%end %>
+
+<!--<h1>Places</h1>-->
+
+<!--<table>-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th>Title</th>-->
+<!--      <th>Content</th>-->
+<!--      <th>Img path</th>-->
+<!--      <th colspan="3"></th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+
+<!--  <tbody>-->
+    <%# @places.each do |place| %>
+<!--      <tr>-->
+<!--        <td><%#= place.title %></td>-->
+<!--        <td><%#= place.content %></td>-->
+<!--        <td><%#= place.img_path %></td>-->
+<!--        <td><%#= link_to 'Show', place %></td>-->
+<!--        <td><%#= link_to 'Edit', edit_place_path(place) %></td>-->
+<!--        <td><%#= link_to 'Destroy', place, method: :delete, data: { confirm: 'Are you sure?' } %></td>-->
+<!--      </tr>-->
+    <%# end %>
+<!--  </tbody>-->
+<!--</table>-->
+
+<!--<br>-->
+  <% if user_signed_in?
+       role_user = current_user.role.name if current_user.role
+       if role_user == "Admin" %>
+      <%= link_to 'New Place', new_place_path %>
+    <% end %>
+  <% end %>
+<br><br>
+</div>
