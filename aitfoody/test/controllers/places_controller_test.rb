@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class PlacesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
   setup do
     @place = places(:one)
   end

@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: AIT
   content: MyText
   img_path: MyString
 
 two:
-  title: MyString
+  title: Thammasat
   content: MyText
   img_path: MyString

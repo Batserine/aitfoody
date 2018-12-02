@@ -66,9 +66,9 @@
         <div class="col-sm-4">
           <div class="card" style="width: 18rem;">
             <%if img_path.thumb.url != nil %>
-              <%= image_tag(img_path.thumb.url, alt: 'Image', hight: '180px') %>
+              <%= image_tag(img_path.thumb.url, alt: 'Image', height: '180px') %>
             <% else %>
-              <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', hight: '180px' %>
+              <%= image_tag 'default.svg' , :class => "card-img-top",:alt=>"Card image", width: '286px', height: '180px' %>
             <% end %>
 
             <div class="card-body">

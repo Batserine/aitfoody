@@ -3,6 +3,7 @@
 one:
   id: 1001
   title: "Thai basil chicken recipe"
+  # photo: "image1.jpg"
   content: "review content"
   rating: 5
   price: 35
@@ -12,6 +13,7 @@ one:
 two:
   id: 1002
   title: "Thai fried rice with shrimp"
+  # photo: "image.jpg"
   content: "review content"
   rating: 4
   price: 40
