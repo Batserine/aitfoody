@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :places
   get 'myarticles/index'
   # mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   mount RailsAdmin::Engine => '/admin', :as => :rails_admin

@@ -1,3 +1,11 @@
+<!-- Font Awesome Icon Library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+  .checked {
+    color: orange;
+  }
+</style>
+
 <p id="notice"><%= notice %></p>
 <%
   posted_name = ''
@@ -85,7 +93,16 @@
       <br/>
       <%= f.text_area :comment,:class => 'form-control'  %>
     </div>
-    <div class="actions">
+      <%= f.hidden_field :rating, :id => "hiddenRating"%>
+      <p>
+      Rating:
+      <span class="fa fa-star" id="star1" onclick="add(this,1)"></span>
+      <span class="fa fa-star" id="star2" onclick="add(this,2)"></span>
+      <span class="fa fa-star" id="star3" onclick="add(this,3)"></span>
+      <span class="fa fa-star" id="star4" onclick="add(this,4)"></span>
+      <span class="fa fa-star" id="star5" onclick="add(this,5)"></span>
+      </p>
+      <div class="actions">
       <%= f.submit 'Post Your Comment', class: 'btn btn-success' %>
     </div>
   <% end %>
@@ -100,6 +117,24 @@
     <% end %>
 <% end %>
   <%= link_to 'Back', homepage_path%>
-<!--  , :class => "btn btn-info"-->
   <br><br>
 </div>
+
+<script>
+    function add(ths,sno){
+        for (var i=1;i<=5;i++){
+            var cur=document.getElementById("star"+i)
+            cur.className="fa fa-star"
+        }
+
+        for (var i=1;i<=sno;i++){
+            var cur=document.getElementById("star"+i)
+            if(cur.className=="fa fa-star")
+            {
+                cur.className="fa fa-star checked"
+            }
+        }
+        $('#hiddenRating').val(sno);
+        // document.getElementById("hiddenRating").value = sno;
+    }
+</script>

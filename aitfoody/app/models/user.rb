@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :revarticles
   before_validation :assign_role
   def assign_role
-    self.role = Role.find_by_name("User") if self.role.nil?
+    self.role = Role.find_by_name("Reviewer") if self.role.nil?
   end
   #-- CAN CAN CAN ---
   def admin?
