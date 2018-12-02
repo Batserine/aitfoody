@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2018_12_01_173043) do
+=======
+ActiveRecord::Schema.define(version: 2018_12_02_053312) do
+>>>>>>> f1aed3e47b9047af595fdc0e3681b3e7ffc5c47f
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,14 +40,25 @@ ActiveRecord::Schema.define(version: 2018_12_01_173043) do
     t.string "img_path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_places_on_user_id"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "relations", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "following_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+>>>>>>> f1aed3e47b9047af595fdc0e3681b3e7ffc5c47f
   create_table "revarticles", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.integer "rating"
     t.integer "price"
-    t.string "keywords"
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -99,8 +114,7 @@ ActiveRecord::Schema.define(version: 2018_12_01_173043) do
     t.string "firstname"
     t.string "lastname"
     t.string "sex"
-    t.string "ban_status"
-    t.boolean "active_status", default: true
+    t.boolean "active_status", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
@@ -117,6 +131,7 @@ ActiveRecord::Schema.define(version: 2018_12_01_173043) do
   end
 
   add_foreign_key "comments", "users"
+  add_foreign_key "places", "users"
   add_foreign_key "revarticles", "typefoods"
   add_foreign_key "revarticles", "users"
   add_foreign_key "review_comments", "comments"

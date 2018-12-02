@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   belongs_to :role
   has_many :revarticles
+  has_many :places
   before_validation :assign_role
   def assign_role
     self.role = Role.find_by_name("Reviewer") if self.role.nil?
