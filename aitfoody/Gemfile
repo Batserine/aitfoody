@@ -47,7 +47,7 @@ group :test do
   gem 'rspec-rails'
 end
 
-gem 'simplecov', :require => false, :group => :app
+gem 'simplecov', :require => false, group: :test
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
